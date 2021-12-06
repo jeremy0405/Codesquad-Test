@@ -97,6 +97,92 @@ mapReader 객체에 모든 정보가 저장되어 있으므로 매개변수로 m
 
 ## 2단계
 
+<br>
+
+**Revision 번호** : 29
+
+<br>
+
+### Main 클래스
+
+Game 객체를 만들어 `run()` 한다.
+
+<br>
+
+### Game 클래스
+
+MapReader 객체, UserInput 객체, MovePlayer 객체, Stage 2의 mapdata를 2차원 배열 `map`에 넣은 후 플레이어의 초기 위치를 저장한다.
+
+이후 초기 map을 출력한 후 무한반복문을 통해 유저의 입력을 받고(`userInput.userInput()`) 유저의 명령어에 따라 동작(`movePlayer.move(map, commands, playerPosition)`)한다.
+
+
+<br>
+
+### UserInput 클래스
+
+`userinput()` 메서드를 통해 입력받은 값(String)을 `char`배열로 바꿔 return 한다.
+
+
+<br>
+
+### MovePlayer 클래스
+
+플레이어의 이동을 담당하는 클래스로 플레이어 이동과 map 출력기능을 하고 있다.
+
+#### move() 메서드
+
+`char[]`인 `commands`를 for each 문으로 하나의 `char`인 `command`로 반복문을 돌린다.
+
+`playerPosition` 으로부터 플레이어의 현재 위치를 받은 후 `moveOnce()` 메서드를 호출한다.
+
+#### moveOnce() 메서드
+
+플레이어의 현재 위치, 현재 mapdata, 명령어를 받은 후 명령어에 따라 `moveWASD()` 메서드 또는 종료 혹은 존재하지 않는 명령어라는 명령을 실행한다.
+
+#### moveWASD() 메서드
+
+명령이 W, A, S, D 인경우 실행되며 이동이 불가능한 경우 경고메시지 출력 후 return하고 이동이 가능하면 `realMove()` 메서드를 호출한다.
+
+이동 후에는 `printMapAndCommand()`를 통해 맵과 명령어를 출력한다.
+
+#### realMove() 메서드
+
+플레이어가 이동할 수 있는 경우 이동하도록 하는 메서드이다.
+
+이동 한 후 playerPosition에 setter를 통해 player 위치를 재정의한다.
+
+#### printMapAndCommand() 메서드
+
+현재 mapdata를 출력한 후 입력받은 command와 경고문구 혹은 이동문구를 출력해주는 메서드이다.
+
+<br>
+
+### MapReader 클래스
+
+1단계에서만 필요했던 기능을 삭제했다.(구멍, 공, 가로, 세로 등 저장기능 삭제)
+
+그 외엔 1단계와 동일하다. (mapdata를 읽은 후 stage 정보(Player 위치, stage 별 map data)를 저장)
+
+<br>
+
+### Position 클래스
+
+플레이어의 위치를 계속 변경하며 저장 할 필요가 생겨 setter를 생성했다.
+
+<br>
+
+### PrintMap 클래스
+
+1단계와 달리 PrintMap은 2차원 배열 map만 조건에 맞춰 출력하면 되기 때문에 간소화 시켰다.
+
+1단계 때와 마찬가지로 2중 for 문과 switch case로 map 값에 따라 알맞은 기호를 출력했다.
+
+<br>
+
+### StageData 클래스
+
+1단계와 동일하다.(mapdata를 String으로 저장하고 있음)
+
 ## 3단계
 
 ## 4단계
