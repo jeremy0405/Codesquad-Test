@@ -8,7 +8,7 @@ public class MapReader {
     private final List<Integer> stageLine = new ArrayList<>();
     private final List<Integer> height = new ArrayList<>();
     private final List<Integer> width = new ArrayList<>();
-    private final List<Position> playerLocation = new ArrayList<>();
+    private final List<Position> playerPosition = new ArrayList<>();
 
     MapReader() {
         readMap();
@@ -96,7 +96,7 @@ public class MapReader {
         }
         if (line.charAt(j) == 'P') {
             map[k][j] = 3;
-            playerLocation.add(new Position(k, j));
+            playerPosition.add(new Position(k, j));
         }
     }
 
@@ -108,8 +108,8 @@ public class MapReader {
         return width;
     }
 
-    public List<Position> getPlayerLocation() {
-        return playerLocation;
+    public List<Position> getPlayerPosition() {
+        return playerPosition;
     }
 
 
