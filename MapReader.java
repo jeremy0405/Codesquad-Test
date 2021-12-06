@@ -20,7 +20,7 @@ public class MapReader {
     }
 
     private void readMap() {
-        this.lines = Arrays.asList(StageData.mapdata);
+        this.lines = Arrays.asList(StageData.mapdata.split("\n"));
     }
 
     private void countStage() {

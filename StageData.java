@@ -1,19 +1,5 @@
 public class StageData {
 
-    public static String[] mapdata = {"Stage 1",
-    "#####",
-    "#OoP#",
-    "#####",
-    "=====",
-    "Stage 2",
-    "  #######  ",
-    "###  O  ###",
-    "#    o    #",
-    "# Oo P oO #",
-    "###  o  ###",
-    " #   O  #  ",
-    " ########  "};
-
-
+    public static String mapdata = "Stage 1\n#####\n#OoP#\n#####\n=====\nStage 2\n  #######  \n###  O  ###\n#    o    #\n# Oo P oO #\n###  o  ###\n #   O  #  \n ########  \n";
 
 }
