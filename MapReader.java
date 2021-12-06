@@ -6,7 +6,6 @@ public class MapReader {
 
     private List<String> lines;
     private final List<Integer> stageLine = new ArrayList<>();
-
     private final List<Integer> height = new ArrayList<>();
     private final List<Integer> width = new ArrayList<>();
     private final List<Integer> ballCount = new ArrayList<>();
@@ -77,7 +76,7 @@ public class MapReader {
         }
     }
 
-    private int[][] setMap(int start, int last, int width, int[][] map, int stageNum) {
+    private void setMap(int start, int last, int width, int[][] map, int stageNum) {
         int k = 0;
         ballCount.add(0);
         holeCount.add(0);
@@ -102,7 +101,6 @@ public class MapReader {
             }
             k++;
         }
-        return map;
     }
 
     public List<Integer> getHeight() {
