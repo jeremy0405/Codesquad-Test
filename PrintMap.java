@@ -20,6 +20,9 @@ public class PrintMap {
                     case 4:
                         System.out.print("P");
                         break;
+                    case 5:
+                        System.out.print("P");
+                        break;
                     default:
                         System.out.print(" ");
                 }
