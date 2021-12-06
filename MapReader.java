@@ -27,6 +27,10 @@ public class MapReader {
         }
     }
 
+    public int getStageSize() {
+        return stageLine.size();
+    }
+
     public int[][] getStages(int stageNum) {
 
         int[] startToLast = setStartToLast(stageNum);
@@ -91,5 +95,6 @@ public class MapReader {
     public List<Position> getPlayerPosition() {
         return playerPosition;
     }
+
 
 }
