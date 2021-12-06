@@ -8,10 +8,7 @@ public class MapReader {
     private final List<Integer> stageLine = new ArrayList<>();
     private final List<Integer> height = new ArrayList<>();
     private final List<Integer> width = new ArrayList<>();
-    private final List<Integer> ballCount = new ArrayList<>();
-    private final List<Integer> holeCount = new ArrayList<>();
     private final List<Position> playerLocation = new ArrayList<>();
-
 
     MapReader() {
         readMap();
@@ -78,8 +75,6 @@ public class MapReader {
 
     private void setMap(int start, int last, int width, int[][] map, int stageNum) {
         int k = 0;
-        ballCount.add(0);
-        holeCount.add(0);
         for (int i = start; i < last; i++) {
             String line = lines.get(i);
             for (int j = 0; j < width; j++) {
@@ -95,11 +90,9 @@ public class MapReader {
         }
         if (line.charAt(j) == 'O') {
             map[k][j] = 1;
-            holeCount.set(stageNum - 1, holeCount.get(stageNum - 1) + 1);
         }
         if (line.charAt(j) == 'o') {
             map[k][j] = 2;
-            ballCount.set(stageNum - 1, ballCount.get(stageNum - 1) + 1);
         }
         if (line.charAt(j) == 'P') {
             map[k][j] = 3;
@@ -113,14 +106,6 @@ public class MapReader {
 
     public List<Integer> getWidth() {
         return width;
-    }
-
-    public List<Integer> getBallCount() {
-        return ballCount;
-    }
-
-    public List<Integer> getHoleCount() {
-        return holeCount;
     }
 
     public List<Position> getPlayerLocation() {
