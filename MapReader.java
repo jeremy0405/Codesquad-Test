@@ -6,8 +6,6 @@ public class MapReader {
 
     private List<String> lines;
     private final List<Integer> stageLine = new ArrayList<>();
-    private final List<Integer> height = new ArrayList<>();
-    private final List<Integer> width = new ArrayList<>();
     private final List<Position> playerPosition = new ArrayList<>();
 
     MapReader() {
@@ -29,10 +27,6 @@ public class MapReader {
         }
     }
 
-    public int getStageSize() {
-        return stageLine.size();
-    }
-
     public int[][] getStages(int stageNum) {
 
         int[] startToLast = setStartToLast(stageNum);
@@ -41,7 +35,6 @@ public class MapReader {
 
         int intHeight = last - start;
         int intWidth = lines.get(start).length();
-        setHeightAndWidth(intHeight, intWidth);
 
         int[][] map = new int[intHeight][intWidth];
         initMap(map);
@@ -60,11 +53,6 @@ public class MapReader {
             startToLast[1] = stageLine.get(stageNum) - 1;
         }
         return startToLast;
-    }
-
-    private void setHeightAndWidth(int height, int width) {
-        this.height.add(height);
-        this.width.add(width);
     }
 
     private void initMap(int[][] map) {
@@ -100,17 +88,8 @@ public class MapReader {
         }
     }
 
-    public List<Integer> getHeight() {
-        return height;
-    }
-
-    public List<Integer> getWidth() {
-        return width;
-    }
-
     public List<Position> getPlayerPosition() {
         return playerPosition;
     }
-
 
 }
