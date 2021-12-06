@@ -22,6 +22,10 @@ public class MapReader {
         this.lines = Files.readAllLines(Paths.get("map.txt"));
     }
 
+    private void readMap() {
+        // this.lines = 클래스에서 얻어 온 정보.
+    }
+
     private void countStage() {
         stageLine.add(0);
         int size = lines.size();
@@ -32,7 +36,7 @@ public class MapReader {
         }
     }
 
-    public int getStageSize(){
+    public int getStageSize() {
         return stageLine.size();
     }
 
@@ -51,10 +55,34 @@ public class MapReader {
             last = stageLine.get(stageNum) - 1;
         }
 
+        int height = last - (start + 1);
+        int width = lines.get(start + 1).length();
+        int[][] map = new int[height][width];
+
         for (int i = start; i < last; i++) {
             String line = lines.get(i);
+
+            for (int j = 0; j < width; j++) {
+                if (line.charAt(j) == '#') {
+                    map[i][j] = 0;
+                }
+                if (line.charAt(j) == 'O') {
+                    map[i][j] = 1;
+                }
+                if (line.charAt(j) == 'o') {
+                    map[i][j] = 2;
+                }
+                if (line.charAt(j) == 'P') {
+                    map[i][j] = 3;
+                }
+            }
+
             System.out.println(line);
         }
+
+        System.out.println("height :" + height);
+        System.out.println("width :" + width);
+        System.out.println("");
 
     }
 
