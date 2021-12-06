@@ -16,7 +16,6 @@ public class MapReader {
     }
 
     private void readMap() {
-        // this.lines = 클래스에서 얻어 온 정보.
         this.lines = Arrays.asList(StageData.mapdata);
     }
 
@@ -42,29 +41,47 @@ public class MapReader {
         return width;
     }
 
-    public String[][] getStages(int stageNum) {
-        int start;
-        int last;
 
+
+    private int[] setStartToLast(int stageNum) {
+        int[] startToLast = new int[2];
         if (stageNum == stageLine.size()) {
-            start = stageLine.get(stageNum - 1);
-            last = lines.size();
+            startToLast[0] = stageLine.get(stageNum - 1) + 1;
+            startToLast[1] = lines.size();
         } else {
-            start = stageLine.get(stageNum - 1);
-            last = stageLine.get(stageNum) - 1;
+            startToLast[0] = stageLine.get(stageNum - 1) + 1;
+            startToLast[1] = stageLine.get(stageNum) - 1;
         }
+        return startToLast;
+    }
 
-        int height = last - (start + 1);
-        int width = lines.get(start + 1).length();
-        this.height.add(height);
-        this.width.add(width);
+    public String[][] getStages(int stageNum) {
+
+        int[] startToLast = setStartToLast(stageNum);
+        int start = startToLast[0];
+        int last = startToLast[1];
+
+        int height = last - start;
+        int width = lines.get(start).length();
+        setHeightAndWidth(height, width);
+
         String[][] map = new String[height][width];
+        map = initMap(map);
+        map = setMap(start, last, width, map);
+
+        return map;
+    }
+
+    private String[][] initMap(String[][] map) {
         for (int i = 0; i < map.length; i++) {
             Arrays.fill(map[i], " ");
         }
+        return map;
+    }
 
+    private String[][] setMap(int start, int last, int width, String[][] map) {
         int k = 0;
-        for (int i = start + 1; i < last; i++) {
+        for (int i = start; i < last; i++) {
             String line = lines.get(i);
             for (int j = 0; j < width; j++) {
                 if(line.charAt(j) == '#'){
@@ -81,11 +98,14 @@ public class MapReader {
                 }
             }
             k++;
-//            System.out.println(line);
         }
-
         return map;
-
     }
+
+    private void setHeightAndWidth(int height, int width) {
+        this.height.add(height);
+        this.width.add(width);
+    }
+
 
 }
