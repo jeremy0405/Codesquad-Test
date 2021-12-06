@@ -93,8 +93,11 @@ public class MapReader {
         if (line.charAt(j) == 'o') {
             map[k][j] = 2;
         }
-        if (line.charAt(j) == 'P') {
+        if (line.charAt(j) == '0'){
             map[k][j] = 3;
+        }
+        if (line.charAt(j) == 'P') {
+            map[k][j] = 4;
             playerPosition.add(new Position(k, j));
         }
     }

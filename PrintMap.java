@@ -15,6 +15,9 @@ public class PrintMap {
                         System.out.print("o");
                         break;
                     case 3:
+                        System.out.print("0");
+                        break;
+                    case 4:
                         System.out.print("P");
                         break;
                     default:
