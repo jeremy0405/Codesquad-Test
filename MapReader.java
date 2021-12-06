@@ -1,3 +1,6 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,12 +12,16 @@ public class MapReader {
     private final List<Position> playerPosition = new ArrayList<>();
 
     MapReader() {
-        readMap();
+        readMapFile();
         countStage();
     }
 
-    private void readMap() {
-        this.lines = Arrays.asList(StageData.mapdata.split("\n"));
+    private void readMapFile() {
+        try {
+            this.lines = Files.readAllLines(Paths.get("map.txt"));
+        } catch (IOException e) {
+            System.out.println("map.txt 파일 읽기 오류 발생");
+        }
     }
 
     private void countStage() {
