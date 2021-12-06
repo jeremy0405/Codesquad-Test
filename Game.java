@@ -9,7 +9,7 @@ public class Game {
         for (int i = 1; i <= stageNum; i++) {
             int[][] map = mapReader.getStages(i);
             Position playerPosition = mapReader.getPlayerPosition().get(i - 1);
-
+            System.out.println("Stage :" + i);
             PrintMap.print(map);
             int j = 0;
             while (j < 3) {
