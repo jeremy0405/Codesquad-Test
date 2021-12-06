@@ -1,29 +1,23 @@
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MapReader {
 
     private List<String> lines;
-
-    //stageLine에 Stage1 or Stage2 or Stage3 가 입력되어 있는 라인의 column을 저장
     private List<Integer> stageLine = new ArrayList<>();
 
-    // 맵 읽는 생성자
-    // 맵을 읽은 후 stage 개수를 체크함
-    MapReader() throws IOException {
-        readMapFile();
-        countStage();
-    }
+    private List<Integer> height = new ArrayList<>();
+    private List<Integer> width = new ArrayList<>();
 
-    private void readMapFile() throws IOException {
-        this.lines = Files.readAllLines(Paths.get("map.txt"));
+    MapReader() {
+        readMap();
+        countStage();
     }
 
     private void readMap() {
         // this.lines = 클래스에서 얻어 온 정보.
+        this.lines = Arrays.asList(StageData.mapdata);
     }
 
     private void countStage() {
@@ -40,10 +34,15 @@ public class MapReader {
         return stageLine.size();
     }
 
-    public void getStages(int stageNum) {
+    public List<Integer> getHeight() {
+        return height;
+    }
 
-        //todo map을 생성해줘야 함.
+    public List<Integer> getWidth() {
+        return width;
+    }
 
+    public String[][] getStages(int stageNum) {
         int start;
         int last;
 
@@ -57,32 +56,35 @@ public class MapReader {
 
         int height = last - (start + 1);
         int width = lines.get(start + 1).length();
-        int[][] map = new int[height][width];
-
-        for (int i = start; i < last; i++) {
-            String line = lines.get(i);
-
-            for (int j = 0; j < width; j++) {
-                if (line.charAt(j) == '#') {
-                    map[i][j] = 0;
-                }
-                if (line.charAt(j) == 'O') {
-                    map[i][j] = 1;
-                }
-                if (line.charAt(j) == 'o') {
-                    map[i][j] = 2;
-                }
-                if (line.charAt(j) == 'P') {
-                    map[i][j] = 3;
-                }
-            }
-
-            System.out.println(line);
+        this.height.add(height);
+        this.width.add(width);
+        String[][] map = new String[height][width];
+        for (int i = 0; i < map.length; i++) {
+            Arrays.fill(map[i], " ");
         }
 
-        System.out.println("height :" + height);
-        System.out.println("width :" + width);
-        System.out.println("");
+        int k = 0;
+        for (int i = start + 1; i < last; i++) {
+            String line = lines.get(i);
+            for (int j = 0; j < width; j++) {
+                if(line.charAt(j) == '#'){
+                    map[k][j] = "0";
+                }
+                if(line.charAt(j) == 'O'){
+                    map[k][j] = "1";
+                }
+                if(line.charAt(j) == 'o'){
+                    map[k][j] = "2";
+                }
+                if(line.charAt(j) == 'P'){
+                    map[k][j] = "3";
+                }
+            }
+            k++;
+//            System.out.println(line);
+        }
+
+        return map;
 
     }
 
