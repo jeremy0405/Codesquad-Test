@@ -4,7 +4,7 @@
 
 <br>
 
-**Revision 번호** : 18
+**Revision 번호** : 19
 
 <br>
 
@@ -59,7 +59,7 @@ stage 별 유효 column을 계산한 후 반환합니다. 마지막 Stage일 경
 
 #### setMap() 메서드
 
-데이터의 종류에 따라 map을 세팅합니다. #, O, o, P 에 따라 알맞은 int 값을 배정해주고 Player의 위치는 Position 객체를 통해 저장합니다.
+`classifyMap()`을 통해 데이터의 종류에 따라 map을 세팅합니다. #, O, o, P 에 따라 알맞은 int 값을 배정해주고 Player의 위치는 Position 객체를 통해 저장합니다.
 
 map 세팅 과정 중 공의 개수와 구멍의 개수, 플레이어의 위치를 Stage별로 저장합니다.
 

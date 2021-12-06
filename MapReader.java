@@ -83,23 +83,27 @@ public class MapReader {
         for (int i = start; i < last; i++) {
             String line = lines.get(i);
             for (int j = 0; j < width; j++) {
-                if (line.charAt(j) == '#') {
-                    map[k][j] = 0;
-                }
-                if (line.charAt(j) == 'O') {
-                    map[k][j] = 1;
-                    holeCount.set(stageNum - 1, holeCount.get(stageNum - 1) + 1);
-                }
-                if (line.charAt(j) == 'o') {
-                    map[k][j] = 2;
-                    ballCount.set(stageNum - 1, ballCount.get(stageNum - 1) + 1);
-                }
-                if (line.charAt(j) == 'P') {
-                    map[k][j] = 3;
-                    playerLocation.add(new Position(k, j));
-                }
+                classifyMap(map, stageNum, k, j, line);
             }
             k++;
+        }
+    }
+
+    private void classifyMap(int[][] map, int stageNum, int k, int j, String line) {
+        if (line.charAt(j) == '#') {
+            map[k][j] = 0;
+        }
+        if (line.charAt(j) == 'O') {
+            map[k][j] = 1;
+            holeCount.set(stageNum - 1, holeCount.get(stageNum - 1) + 1);
+        }
+        if (line.charAt(j) == 'o') {
+            map[k][j] = 2;
+            ballCount.set(stageNum - 1, ballCount.get(stageNum - 1) + 1);
+        }
+        if (line.charAt(j) == 'P') {
+            map[k][j] = 3;
+            playerLocation.add(new Position(k, j));
         }
     }
 
