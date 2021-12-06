@@ -27,8 +27,8 @@ public class PrintMap {
         System.out.println("");
         System.out.println("가로 크기: " + mapReader.getWidth().get(i - 1));
         System.out.println("세로 크기: " + mapReader.getHeight().get(i - 1));
-        System.out.println("구멍의 수: ");
-        System.out.println("공의 수: ");
+        System.out.println("구멍의 수: " + mapReader.getHoleCount().get(i - 1));
+        System.out.println("공의 수: " + mapReader.getBallCount().get(i - 1));
         System.out.println("플레이어 위치 (");
         System.out.println("");
     }

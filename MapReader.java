@@ -9,6 +9,16 @@ public class MapReader {
 
     private List<Integer> height = new ArrayList<>();
     private List<Integer> width = new ArrayList<>();
+    private List<Integer> ballCount = new ArrayList<>();
+    private List<Integer> holeCount = new ArrayList<>();
+
+    public List<Integer> getBallCount() {
+        return ballCount;
+    }
+
+    public List<Integer> getHoleCount() {
+        return holeCount;
+    }
 
     MapReader() {
         readMap();
@@ -41,8 +51,6 @@ public class MapReader {
         return width;
     }
 
-
-
     private int[] setStartToLast(int stageNum) {
         int[] startToLast = new int[2];
         if (stageNum == stageLine.size()) {
@@ -58,6 +66,8 @@ public class MapReader {
     public String[][] getStages(int stageNum) {
 
         int[] startToLast = setStartToLast(stageNum);
+        ballCount.add(0);
+        holeCount.add(0);
         int start = startToLast[0];
         int last = startToLast[1];
 
@@ -67,7 +77,7 @@ public class MapReader {
 
         String[][] map = new String[height][width];
         map = initMap(map);
-        map = setMap(start, last, width, map);
+        map = setMap(start, last, width, map, stageNum);
 
         return map;
     }
@@ -79,7 +89,7 @@ public class MapReader {
         return map;
     }
 
-    private String[][] setMap(int start, int last, int width, String[][] map) {
+    private String[][] setMap(int start, int last, int width, String[][] map, int stageNum) {
         int k = 0;
         for (int i = start; i < last; i++) {
             String line = lines.get(i);
@@ -89,12 +99,15 @@ public class MapReader {
                 }
                 if(line.charAt(j) == 'O'){
                     map[k][j] = "1";
+                    holeCount.set(stageNum - 1, holeCount.get(stageNum - 1) + 1);
                 }
                 if(line.charAt(j) == 'o'){
                     map[k][j] = "2";
+                    ballCount.set(stageNum - 1, ballCount.get(stageNum - 1) + 1);
                 }
                 if(line.charAt(j) == 'P'){
                     map[k][j] = "3";
+                    //todo Position
                 }
             }
             k++;
