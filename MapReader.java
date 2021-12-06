@@ -37,19 +37,19 @@ public class MapReader {
         return stageLine.size();
     }
 
-    public String[][] getStages(int stageNum) {
+    public int[][] getStages(int stageNum) {
 
         int[] startToLast = setStartToLast(stageNum);
         int start = startToLast[0];
         int last = startToLast[1];
 
-        int height = last - start;
-        int width = lines.get(start).length();
-        setHeightAndWidth(height, width);
+        int intHeight = last - start;
+        int intWidth = lines.get(start).length();
+        setHeightAndWidth(intHeight, intWidth);
 
-        String[][] map = new String[height][width];
-        map = initMap(map);
-        map = setMap(start, last, width, map, stageNum);
+        int[][] map = new int[intHeight][intWidth];
+        initMap(map);
+        setMap(start, last, intWidth, map, stageNum);
 
         return map;
     }
@@ -71,14 +71,13 @@ public class MapReader {
         this.width.add(width);
     }
 
-    private String[][] initMap(String[][] map) {
-        for (int i = 0; i < map.length; i++) {
-            Arrays.fill(map[i], " ");
+    private void initMap(int[][] map) {
+        for (int[] ints : map) {
+            Arrays.fill(ints, 9);
         }
-        return map;
     }
 
-    private String[][] setMap(int start, int last, int width, String[][] map, int stageNum) {
+    private int[][] setMap(int start, int last, int width, int[][] map, int stageNum) {
         int k = 0;
         ballCount.add(0);
         holeCount.add(0);
@@ -86,18 +85,18 @@ public class MapReader {
             String line = lines.get(i);
             for (int j = 0; j < width; j++) {
                 if (line.charAt(j) == '#') {
-                    map[k][j] = "0";
+                    map[k][j] = 0;
                 }
                 if (line.charAt(j) == 'O') {
-                    map[k][j] = "1";
+                    map[k][j] = 1;
                     holeCount.set(stageNum - 1, holeCount.get(stageNum - 1) + 1);
                 }
                 if (line.charAt(j) == 'o') {
-                    map[k][j] = "2";
+                    map[k][j] = 2;
                     ballCount.set(stageNum - 1, ballCount.get(stageNum - 1) + 1);
                 }
                 if (line.charAt(j) == 'P') {
-                    map[k][j] = "3";
+                    map[k][j] = 3;
                     playerLocation.add(new Position(k, j));
                 }
             }

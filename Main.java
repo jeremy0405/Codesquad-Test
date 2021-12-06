@@ -5,7 +5,7 @@ public class Main {
         int stageNum = mapReader.getStageSize();
 
         for (int i = 1; i <= stageNum; i++) {
-            String[][] map = mapReader.getStages(i);
+            int[][] map = mapReader.getStages(i);
             PrintMap.print(map, i, mapReader);
         }
 
