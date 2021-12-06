@@ -13,84 +13,51 @@ public class MovePlayer {
     private void moveOnce(int[][] map, char command, int x, int y, Position playerPosition) {
 
         if (command == 'A') {
-            if (map[x][y - 1] != 9) {
-                PrintMap.print(map);
-                System.out.println(command + ": (경고!) 해당 명령을 수행할 수 없습니다!");
-                return;
-            }
-            int tmp = map[x][y];
-            map[x][y] = map[x][y - 1];
-            map[x][y - 1] = tmp;
-
-            playerPosition.setX(x);
-            playerPosition.setY(y - 1);
-            PrintMap.print(map);
-            System.out.println(command + ": 왼쪽으로 이동합니다.");
+            moveWASD(map, command, x, y, x, y - 1, playerPosition, ": 왼쪽으로 이동합니다.");
             return;
         }
-
         if (command == 'D') {
-            if (map[x][y + 1] != 9) {
-                PrintMap.print(map);
-                System.out.println(command + ": (경고!) 해당 명령을 수행할 수 없습니다!");
-                return;
-            }
-            int tmp = map[x][y];
-            map[x][y] = map[x][y + 1];
-            map[x][y + 1] = tmp;
-
-            playerPosition.setX(x);
-            playerPosition.setY(y + 1);
-            PrintMap.print(map);
-            System.out.println(command + ": 오른쪽으로 이동합니다.");
+            moveWASD(map, command, x, y, x, y + 1, playerPosition, ": 오른쪽으로 이동합니다.");
             return;
         }
-
         if (command == 'W') {
-            if (map[x - 1][y] != 9) {
-                PrintMap.print(map);
-                System.out.println(command + ": (경고!) 해당 명령을 수행할 수 없습니다!");
-                return;
-            }
-            int tmp = map[x][y];
-            map[x][y] = map[x - 1][y];
-            map[x - 1][y] = tmp;
-
-            playerPosition.setX(x - 1);
-            playerPosition.setY(y);
-            PrintMap.print(map);
-            System.out.println(command + ": 위로 이동합니다.");
+            moveWASD(map, command, x, y, x - 1, y, playerPosition, ": 위로 이동합니다.");
             return;
         }
-
         if (command == 'S') {
-            if (map[x + 1][y] != 9) {
-                PrintMap.print(map);
-                System.out.println(command + ": (경고!) 해당 명령을 수행할 수 없습니다!");
-                return;
-            }
-            int tmp = map[x][y];
-            map[x][y] = map[x + 1][y];
-            map[x + 1][y] = tmp;
-
-            playerPosition.setX(x + 1);
-            playerPosition.setY(y);
-            PrintMap.print(map);
-            System.out.println(command + ": 아래로 이동합니다.");
+            moveWASD(map, command, x, y, x + 1, y, playerPosition, ": 아래로 이동합니다.");
             return;
         }
-
         if (command == 'Q') {
             System.out.println("Bye~");
             System.exit(0);
             return;
         }
+        printMapAndCommand(map, command, ": 해당 명령어는 존재하지 않습니다.");
+    }
 
+    private void moveWASD(int[][] map, char command, int x, int y, int a,
+        int b, Position playerPosition, String s) {
+
+        if (map[a][b] != 9) {
+            printMapAndCommand(map, command, ": (경고!) 해당 명령을 수행할 수 없습니다!");
+            return;
+        }
+        realMove(map, x, y, a, b, playerPosition);
+        printMapAndCommand(map, command, s);
+    }
+
+    private void printMapAndCommand(int[][] map, char command, String s) {
         PrintMap.print(map);
-        System.out.println(command + ": 해당 명령을 수행할 수 없습니다");
+        System.out.println(command + s);
+    }
 
-
-
+    private void realMove(int[][] map, int x, int y, int a, int b, Position playerPosition) {
+        int tmp = map[x][y];
+        map[x][y] = map[a][b];
+        map[a][b] = tmp;
+        playerPosition.setX(a);
+        playerPosition.setY(b);
     }
 
 }
