@@ -1,27 +1,17 @@
 public class Game {
 
-    private UserInput userInput;
-    private Position playerPosition;
-    int[][] map;
-
-    Game() {
-        init();
-    }
-
-    private void init() {
-        MapReader mapReader = new MapReader();
-        map = mapReader.getStages(2);
-        userInput = new UserInput();
-        playerPosition = mapReader.getPlayerPosition().get(0);
-    }
-
     public void run() {
+        MapReader mapReader = new MapReader();
+        UserInput userInput = new UserInput();
         MovePlayer movePlayer = new MovePlayer();
+        int[][] map = mapReader.getStages(2);
+        Position playerPosition = mapReader.getPlayerPosition().get(0);
+
         PrintMap.print(map);
 
         while (true) {
             char[] commands = userInput.userInput();
-            movePlayer.move(this.map, commands, this.playerPosition);
+            movePlayer.move(map, commands, playerPosition);
         }
 
     }
