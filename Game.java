@@ -21,19 +21,22 @@ public class Game {
     public void run() {
         int totalStage = mapReader.getStageSize();
 
-        for (int i = 1; i <= totalStage; i++) {
-            int[][] map = mapReader.getStages(i);
-            playerPosition = mapReader.getPlayerPosition().get(i - 1);
-            System.out.println("Stage :" + i);
-            CopyMap.copyInitialMap(map);
-            PrintMap.print(map);
+        for (int stage = 1; stage <= totalStage; stage++) {
+            int[][] map = initSetting(stage);
             boolean isKeep = true;
-
             playGame(map, isKeep);
         }
-//            playGame(userInput, movePlayer, map, playerPosition, isKeep);
-
         userInput.close();
+    }
+
+    private int[][] initSetting(int stage) {
+        int[][] map = mapReader.getStages(stage);
+        playerPosition = mapReader.getPlayerPosition().get(stage - 1);
+        System.out.println("Stage :" + stage);
+        nowStage = stage;
+        CopyMap.copyInitialMap(map);
+        PrintMap.print(map);
+        return map;
     }
 
     private void playGame(int[][] map, boolean isKeep) {
@@ -44,7 +47,7 @@ public class Game {
         }
     }
 
-    public boolean checkEndGame(int[][] map) {
+    private boolean checkEndGame(int[][] map) {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
                 if (map[i][j] == 1 || map[i][j] == 2) {
@@ -55,4 +58,7 @@ public class Game {
         return false;
     }
 
+    public int getNowStage() {
+        return nowStage;
+    }
 }
