@@ -39,22 +39,35 @@ public class MovePlayer {
     private void moveWASD(int[][] map, char command, int x, int y, int a,
         int b, Position playerPosition, String s) {
 
+        String warning = ": (경고!) 해당 명령을 수행할 수 없습니다!";
+
         if (map[x + a][y + b] == 0) {
-            printMapAndCommand(map, command, ": (경고!) 해당 명령을 수행할 수 없습니다!");
+            printMapAndCommand(map, command, warning);
             return;
         }
         if (map[x + a][y + b] == 2 && (map[x + 2 * a][y + 2 * b] == 0
             || map[x + 2 * a][y + 2 * b] == 2
             || map[x + 2 * a][y + 2 * b] == 3)) {
-            printMapAndCommand(map, command, ": (경고!) 해당 명령을 수행할 수 없습니다!");
+            printMapAndCommand(map, command, warning);
             return;
         }
         if (map[x + a][y + b] == 3 && (map[x + 2 * a][y + 2 * b] == 0
             || map[x + 2 * a][y + 2 * b] == 2
             || map[x + 2 * a][y + 2 * b] == 3)) {
-            printMapAndCommand(map, command, ": (경고!) 해당 명령을 수행할 수 없습니다!");
+            printMapAndCommand(map, command, warning);
             return;
         }
+
+        if (map[x][y] == 5 && map[x + a][y + b] == 2 && map[x + 2 * a][y + 2 * b] == 9) {
+            map[x + 2 * a][y + 2 * b] = map[x + a][y + b];
+            map[x + a][y + b] = 4;
+            map[x][y] -= 4;
+            playerPosition.setX(x + a);
+            playerPosition.setY(y + b);
+            printMapAndCommand(map, command, s);
+            return;
+        }
+
         if (map[x + a][y + b] == 2 && map[x + 2 * a][y + 2 * b] == 9) {
             map[x + 2 * a][y + 2 * b] = map[x + a][y + b];
             map[x + a][y + b] = map[x][y];
