@@ -1,6 +1,6 @@
-public class PrintMap {
+public class Print {
 
-    public static void print(int[][] map) {
+    public static void printMap(int[][] map) {
         System.out.println("");
         for (int j = 0; j < map.length; j++) {
             for (int k = 0; k < map[j].length; k++) {
@@ -30,6 +30,18 @@ public class PrintMap {
             System.out.println("");
         }
         System.out.println("");
+    }
+
+    public static void stageEndPrint(int stage, Classification classification) {
+        System.out.println("");
+        System.out.println("******************");
+        System.out.println("*Stage " + stage + " Clear!!!*");
+        System.out.printf("*명령 입력 횟수: %2d*\n", classification.getCount());
+        System.out.println("******************");
+        System.out.println("");
+    }
+
+    public static void gameEndPrint(){
 
     }
 

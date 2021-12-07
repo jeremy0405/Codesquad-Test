@@ -15,16 +15,20 @@ public class Game {
         mapReader = new MapReader();
         userInput = new UserInput();
         movePlayer = new MovePlayer();
-        classification = new Classification();
+        classification = new Classification(movePlayer);
     }
 
     public void run() {
         int totalStage = mapReader.getStageSize();
 
+        //todo stage = 1 이 아니라 리셋하기 위해서
+        // stage = resetStageData 처럼 해줘야 할듯
         for (int stage = 1; stage <= totalStage; stage++) {
             int[][] map = initSetting(stage);
             boolean isKeep = true;
             playGame(map, isKeep);
+
+            Print.stageEndPrint(stage, classification);
         }
         userInput.close();
     }
@@ -32,17 +36,18 @@ public class Game {
     private int[][] initSetting(int stage) {
         int[][] map = mapReader.getStages(stage);
         playerPosition = mapReader.getPlayerPosition().get(stage - 1);
+        classification.setCount(0);
         System.out.println("Stage :" + stage);
         nowStage = stage;
         CopyMap.copyInitialMap(map);
-        PrintMap.print(map);
+        Print.printMap(map);
         return map;
     }
 
     private void playGame(int[][] map, boolean isKeep) {
         while (isKeep) {
             char[] commands = userInput.userInput();
-            classification.performCommands(map, commands, playerPosition, movePlayer);
+            classification.performCommands(map, commands, playerPosition);
             isKeep = checkEndGame(map);
         }
     }

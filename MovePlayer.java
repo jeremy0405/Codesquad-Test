@@ -33,7 +33,7 @@ public class MovePlayer {
     }
 
     private void printMapAndCommand(int[][] map, char command, String s) {
-        PrintMap.print(map);
+        Print.printMap(map);
         System.out.println(command + s);
     }
 
