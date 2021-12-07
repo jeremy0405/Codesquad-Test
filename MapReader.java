@@ -50,7 +50,7 @@ public class MapReader {
 
         int[][] map = new int[intHeight][intWidth];
         initMap(map);
-        setMap(start, last, intWidth, map, stageNum);
+        setMap(start, last, intWidth, map);
 
         return map;
     }
@@ -73,18 +73,18 @@ public class MapReader {
         }
     }
 
-    private void setMap(int start, int last, int width, int[][] map, int stageNum) {
+    private void setMap(int start, int last, int width, int[][] map) {
         int k = 0;
         for (int i = start; i < last; i++) {
             String line = lines.get(i);
             for (int j = 0; j < width; j++) {
-                classifyMap(map, stageNum, k, j, line);
+                classifyMap(map, k, j, line);
             }
             k++;
         }
     }
 
-    private void classifyMap(int[][] map, int stageNum, int k, int j, String line) {
+    private void classifyMap(int[][] map, int k, int j, String line) {
         if (line.charAt(j) == '#') {
             map[k][j] = 9;
         }

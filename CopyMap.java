@@ -21,8 +21,4 @@ public class CopyMap {
         }
     }
 
-    public static int[][][] getStageMap() {
-        return stageMap;
-    }
-
 }

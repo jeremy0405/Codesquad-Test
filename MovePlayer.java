@@ -17,7 +17,7 @@ public class MovePlayer {
             return;
         }
         if (map[x + a][y + b] == 2 || map[x + a][y + b] == 3) {
-            MoveBall(map, x, y, a, b, playerPosition);
+            moveBall(map, x, y, a, b, playerPosition);
             printMapAndCommand(map, command, s);
             return;
         }
@@ -25,7 +25,7 @@ public class MovePlayer {
         printMapAndCommand(map, command, s);
     }
 
-    private void MoveBall(int[][] map, int x, int y, int a, int b, Position playerPosition) {
+    private void moveBall(int[][] map, int x, int y, int a, int b, Position playerPosition) {
         map[x][y] -= 4;
         map[x + a][y + b] += 2;
         map[x + 2 * a][y + 2 * b] += 2;

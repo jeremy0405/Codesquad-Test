@@ -1,7 +1,7 @@
 public class Classification {
 
-    private MovePlayer movePlayer;
-    private MapReader mapReader;
+    private final MovePlayer movePlayer;
+    private final MapReader mapReader;
     private int count;
 
     Classification(MovePlayer movePlayer, MapReader mapReader) {
@@ -14,12 +14,12 @@ public class Classification {
         for (char command : commands) {
             int x = playerPosition.getX();
             int y = playerPosition.getY();
-            validateCommad(map, command, x, y, playerPosition, stage);
+            validateCommand(map, command, x, y, playerPosition, stage);
         }
 
     }
 
-    private void validateCommad(int[][] map, char command, int x, int y, Position playerPosition, int stage) {
+    private void validateCommand(int[][] map, char command, int x, int y, Position playerPosition, int stage) {
 
         if (command == 'A') {
             movePlayer.moveWASD(map, command, x, y, 0, -1, playerPosition, ": 왼쪽으로 이동합니다.");

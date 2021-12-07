@@ -3,7 +3,6 @@ public class Game {
     public static int nowStage;
     private MapReader mapReader;
     private UserInput userInput;
-    private MovePlayer movePlayer;
     private Position playerPosition;
     private Classification classification;
 
@@ -14,7 +13,7 @@ public class Game {
     private void init() {
         mapReader = new MapReader();
         userInput = new UserInput();
-        movePlayer = new MovePlayer();
+        MovePlayer movePlayer = new MovePlayer();
         classification = new Classification(movePlayer, mapReader);
     }
 
@@ -28,7 +27,6 @@ public class Game {
 
             Print.stageEndPrint(stage, classification);
         }
-        //todo 메서드 안에 비어있음 작성해
         Print.gameEndPrint();
         userInput.close();
     }
