@@ -43,17 +43,4 @@ public class Classification {
         System.out.println(command + ": 해당 명령어는 존재하지 않습니다.");
     }
 
-
-    public boolean checkEndGame(int[][] map) {
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[i].length; j++) {
-                if (map[i][j] == 1 || map[i][j] == 2) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-
 }

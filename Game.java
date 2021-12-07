@@ -1,36 +1,58 @@
 public class Game {
 
-    public void run() {
-        MapReader mapReader = new MapReader();
-        UserInput userInput = new UserInput();
-        MovePlayer movePlayer = new MovePlayer();
-        Classification classification = new Classification();
-        int stageNum = mapReader.getStageSize();
+    private int nowStage;
+    private MapReader mapReader;
+    private UserInput userInput;
+    private MovePlayer movePlayer;
+    private Position playerPosition;
+    private Classification classification;
 
-        for (int i = 1; i <= stageNum; i++) {
+    Game() {
+        init();
+    }
+
+    private void init() {
+        mapReader = new MapReader();
+        userInput = new UserInput();
+        movePlayer = new MovePlayer();
+        classification = new Classification();
+    }
+
+    public void run() {
+        int totalStage = mapReader.getStageSize();
+
+        for (int i = 1; i <= totalStage; i++) {
             int[][] map = mapReader.getStages(i);
-            Position playerPosition = mapReader.getPlayerPosition().get(i - 1);
+            playerPosition = mapReader.getPlayerPosition().get(i - 1);
             System.out.println("Stage :" + i);
             CopyMap.copyInitialMap(map);
             PrintMap.print(map);
             boolean isKeep = true;
 
-            playGame(userInput, movePlayer, map, playerPosition, isKeep, classification);
+            playGame(map, isKeep);
         }
 //            playGame(userInput, movePlayer, map, playerPosition, isKeep);
 
         userInput.close();
     }
 
-
-
-    private void playGame(UserInput userInput, MovePlayer movePlayer, int[][] map,
-        Position playerPosition, boolean isKeep, Classification classification) {
+    private void playGame(int[][] map, boolean isKeep) {
         while (isKeep) {
             char[] commands = userInput.userInput();
             classification.performCommands(map, commands, playerPosition, movePlayer);
-            isKeep = classification.checkEndGame(map);
+            isKeep = checkEndGame(map);
         }
+    }
+
+    public boolean checkEndGame(int[][] map) {
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                if (map[i][j] == 1 || map[i][j] == 2) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }
