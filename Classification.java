@@ -66,7 +66,7 @@ public class Classification {
         this.count = 0;
         Position initPosition = mapReader.getInitPosition().get(stage - 1);
         playerPosition.setXY(initPosition.getX(), initPosition.getY());
-        CopyMap.copymap(map);
+        CopyMap.copyMap(map);
         System.out.println("초기화 되었습니다!!!!!!");
         Print.printMap(map);
     }

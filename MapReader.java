@@ -2,7 +2,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MapReader {
@@ -49,7 +48,6 @@ public class MapReader {
         int intWidth = lines.get(start).length();
 
         int[][] map = new int[intHeight][intWidth];
-        initMap(map);
         setMap(start, last, intWidth, map);
 
         return map;
@@ -65,12 +63,6 @@ public class MapReader {
             startToLast[1] = stageLine.get(stageNum) - 1;
         }
         return startToLast;
-    }
-
-    private void initMap(int[][] map) {
-        for (int[] ints : map) {
-            Arrays.fill(ints, 0);
-        }
     }
 
     private void setMap(int start, int last, int width, int[][] map) {

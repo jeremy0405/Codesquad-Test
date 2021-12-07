@@ -13,7 +13,7 @@ public class CopyMap {
         stage++;
     }
 
-    public static void copymap(int[][] map) {
+    public static void copyMap(int[][] map) {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
                 System.arraycopy(stageMap[Game.nowStage - 1][i], 0, map[i], 0, map[i].length);
