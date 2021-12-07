@@ -5,9 +5,6 @@ public class PrintMap {
         for (int j = 0; j < map.length; j++) {
             for (int k = 0; k < map[j].length; k++) {
                 switch (map[j][k]) {
-                    case 0:
-                        System.out.print("#");
-                        break;
                     case 1:
                         System.out.print("O");
                         break;
@@ -22,6 +19,9 @@ public class PrintMap {
                         break;
                     case 5:
                         System.out.print("P");
+                        break;
+                    case 9:
+                        System.out.print("#");
                         break;
                     default:
                         System.out.print(" ");

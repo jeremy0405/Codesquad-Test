@@ -68,7 +68,7 @@ public class MapReader {
 
     private void initMap(int[][] map) {
         for (int[] ints : map) {
-            Arrays.fill(ints, 9);
+            Arrays.fill(ints, 0);
         }
     }
 
@@ -85,7 +85,7 @@ public class MapReader {
 
     private void classifyMap(int[][] map, int stageNum, int k, int j, String line) {
         if (line.charAt(j) == '#') {
-            map[k][j] = 0;
+            map[k][j] = 9;
         }
         if (line.charAt(j) == 'O') {
             map[k][j] = 1;

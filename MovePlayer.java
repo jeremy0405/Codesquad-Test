@@ -13,7 +13,7 @@ public class MovePlayer {
     public boolean checkEndGame(int[][] map) {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
-                if(map[i][j] == 1 || map[i][j] == 2) {
+                if (map[i][j] == 1 || map[i][j] == 2) {
                     return true;
                 }
             }
@@ -52,53 +52,20 @@ public class MovePlayer {
 
         String warning = ": (경고!) 해당 명령을 수행할 수 없습니다!";
 
-        if (map[x + a][y + b] == 0) {
+        if (map[x + a][y + b] == 9) {
             printMapAndCommand(map, command, warning);
             return;
         }
-        if (map[x + a][y + b] == 2 && (map[x + 2 * a][y + 2 * b] == 0
-            || map[x + 2 * a][y + 2 * b] == 2
-            || map[x + 2 * a][y + 2 * b] == 3)) {
-            printMapAndCommand(map, command, warning);
-            return;
-        }
-        if (map[x + a][y + b] == 3 && (map[x + 2 * a][y + 2 * b] == 0
-            || map[x + 2 * a][y + 2 * b] == 2
-            || map[x + 2 * a][y + 2 * b] == 3)) {
+        if ((map[x + a][y + b] == 2 || map[x + a][y + b] == 3) &&
+            (map[x + 2 * a][y + 2 * b] == 9
+                || map[x + 2 * a][y + 2 * b] == 2
+                || map[x + 2 * a][y + 2 * b] == 3)) {
             printMapAndCommand(map, command, warning);
             return;
         }
 
-        if (map[x][y] == 5 && map[x + a][y + b] == 2 && map[x + 2 * a][y + 2 * b] == 9) {
-            map[x + 2 * a][y + 2 * b] = map[x + a][y + b];
-            map[x + a][y + b] = 4;
-            map[x][y] -= 4;
-
-            playerPosition.setXY(x + a, y + b);
-            printMapAndCommand(map, command, s);
-            return;
-        }
-
-        if (map[x + a][y + b] == 2 && map[x + 2 * a][y + 2 * b] == 9) {
-            map[x + 2 * a][y + 2 * b] = map[x + a][y + b];
-            map[x + a][y + b] = map[x][y];
-            map[x][y] = 9;
-
-            playerPosition.setXY(x + a, y + b);
-            printMapAndCommand(map, command, s);
-            return;
-        }
         if (map[x + a][y + b] == 2 || map[x + a][y + b] == 3) {
             MoveBall(map, x, y, a, b, playerPosition);
-            printMapAndCommand(map, command, s);
-            return;
-        }
-
-        if (map[x + a][y + b] == 1 && map[x][y] == 5) {
-            map[x + a][y + b] += 4;
-            map[x][y] -= 4;
-
-            playerPosition.setXY(x + a, y + b);
             printMapAndCommand(map, command, s);
             return;
         }
@@ -108,31 +75,10 @@ public class MovePlayer {
     }
 
     private void MoveBall(int[][] map, int x, int y, int a, int b, Position playerPosition) {
-        if (map[x + 2 * a][y + 2 * b] == 9) {
-            if (map[x + a][y + b] == 3) {
-                map[x + 2 * a][y + 2 * b] =
-                    (map[x + 2 * a][y + 2 * b] + map[x + a][y + b]) % 10; // 9 = 2
-                map[x + a][y + b] += 2;
-                map[x][y] = 9;
-
-                playerPosition.setXY(x + a, y + b);
-                return;
-            }
-            map[x + 2 * a][y + 2 * b] += (map[x + a][y + b] + 1) % 10; // 9 += 3 + 1 + 9 / 10
-            map[x + a][y + b] += 2;
-            map[x][y] = 9;
-
-            playerPosition.setXY(x + a, y + b);
-            return;
-        }
-        if (map[x + 2 * a][y + 2 * b] == 1) {
-            map[x + 2 * a][y + 2 * b] += 2; // 3
-            map[x + a][y + b] += 2; //  ab 2    4   ab 3  5
-            map[x][y] = 9;
-
-            playerPosition.setXY(x + a, y + b);
-            return;
-        }
+        map[x][y] -= 4;
+        map[x + a][y + b] += 2;
+        map[x + 2 * a][y + 2 * b] += 2;
+        playerPosition.setXY(x + a, y + b);
     }
 
     private void printMapAndCommand(int[][] map, char command, String s) {
@@ -141,24 +87,9 @@ public class MovePlayer {
     }
 
     private void realMove(int[][] map, int x, int y, int a, int b, Position playerPosition) {
-
-        // 이거 건드리면
-        // Stage2 오류남
-
-        if (map[x + a][y + b] == 9) {
-            map[x + a][y + b] = 4;
-        } else {
-            map[x + a][y + b] += map[x][y]; // 1 += 4; 5
-        }
-
-        if (map[x][y] - 4 == 0) {
-            map[x][y] = 9;
-        } else {
-            map[x][y] -= 4;
-        }
-
+        map[x][y] -= 4;
+        map[x + a][y + b] += 4;
         playerPosition.setXY(x + a, y + b);
-
     }
 
 }
