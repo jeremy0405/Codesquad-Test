@@ -1,23 +1,25 @@
 public class Classification {
 
     private MovePlayer movePlayer;
+    private MapReader mapReader;
     private int count;
 
-    Classification(MovePlayer movePlayer) {
+    Classification(MovePlayer movePlayer, MapReader mapReader) {
         this.movePlayer = movePlayer;
+        this.mapReader = mapReader;
     }
 
-    public void performCommands(int[][] map, char[] commands, Position playerPosition) {
+    public void performCommands(int[][] map, char[] commands, Position playerPosition, int stage) {
 
         for (char command : commands) {
             int x = playerPosition.getX();
             int y = playerPosition.getY();
-            validateCommad(map, command, x, y, playerPosition);
+            validateCommad(map, command, x, y, playerPosition, stage);
         }
 
     }
 
-    private void validateCommad(int[][] map, char command, int x, int y, Position playerPosition) {
+    private void validateCommad(int[][] map, char command, int x, int y, Position playerPosition, int stage) {
 
         if (command == 'A') {
             movePlayer.moveWASD(map, command, x, y, 0, -1, playerPosition, ": 왼쪽으로 이동합니다.");
@@ -45,16 +47,20 @@ public class Classification {
             return;
         }
         if (command == 'R') {
-            //todo Restart
-            // 카운트 0
-            // 입력 받아서 Stage 정보를 저장
-            //  저장된 Stage??
-            this.count = 0;
-
+            resetGame(map, playerPosition, stage);
             return;
         }
         Print.printMap(map);
         System.out.println(command + ": 해당 명령어는 존재하지 않습니다.");
+    }
+
+    private void resetGame(int[][] map, Position playerPosition, int stage) {
+        this.count = 0;
+        Position initPosition = mapReader.getInitPosition().get(stage - 1);
+        playerPosition.setXY(initPosition.getX(), initPosition.getY());
+        CopyMap.copymap(map);
+        System.out.println("초기화 되었습니다!!!!!!");
+        Print.printMap(map);
     }
 
     public int getCount() {

@@ -10,6 +10,7 @@ public class MapReader {
     private List<String> lines;
     private final List<Integer> stageLine = new ArrayList<>();
     private final List<Position> playerPosition = new ArrayList<>();
+    private final List<Position> initPosition = new ArrayList<>();
 
     MapReader() {
         readMapFile();
@@ -99,6 +100,7 @@ public class MapReader {
         if (line.charAt(j) == 'P') {
             map[k][j] = 4;
             playerPosition.add(new Position(k, j));
+            initPosition.add(new Position(k, j));
         }
     }
 
@@ -106,5 +108,8 @@ public class MapReader {
         return playerPosition;
     }
 
+    public List<Position> getInitPosition() {
+        return initPosition;
+    }
 
 }

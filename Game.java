@@ -1,6 +1,6 @@
 public class Game {
 
-    private int nowStage;
+    public static int nowStage;
     private MapReader mapReader;
     private UserInput userInput;
     private MovePlayer movePlayer;
@@ -15,21 +15,21 @@ public class Game {
         mapReader = new MapReader();
         userInput = new UserInput();
         movePlayer = new MovePlayer();
-        classification = new Classification(movePlayer);
+        classification = new Classification(movePlayer, mapReader);
     }
 
     public void run() {
         int totalStage = mapReader.getStageSize();
 
-        //todo stage = 1 이 아니라 리셋하기 위해서
-        // stage = resetStageData 처럼 해줘야 할듯
         for (int stage = 1; stage <= totalStage; stage++) {
             int[][] map = initSetting(stage);
             boolean isKeep = true;
-            playGame(map, isKeep);
+            playGame(map, isKeep, stage);
 
             Print.stageEndPrint(stage, classification);
         }
+        //todo 메서드 안에 비어있음 작성해
+        Print.gameEndPrint();
         userInput.close();
     }
 
@@ -44,10 +44,10 @@ public class Game {
         return map;
     }
 
-    private void playGame(int[][] map, boolean isKeep) {
+    private void playGame(int[][] map, boolean isKeep, int stage) {
         while (isKeep) {
             char[] commands = userInput.userInput();
-            classification.performCommands(map, commands, playerPosition);
+            classification.performCommands(map, commands, playerPosition, stage);
             isKeep = checkEndGame(map);
         }
     }
@@ -63,7 +63,4 @@ public class Game {
         return false;
     }
 
-    public int getNowStage() {
-        return nowStage;
-    }
 }
