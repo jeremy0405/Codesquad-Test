@@ -10,6 +10,17 @@ public class MovePlayer {
 
     }
 
+    public boolean checkEndGame(int[][] map) {
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                if(map[i][j] == 1 || map[i][j] == 2) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     private void moveOnce(int[][] map, char command, int x, int y, Position playerPosition) {
 
         if (command == 'A') {
@@ -62,8 +73,8 @@ public class MovePlayer {
             map[x + 2 * a][y + 2 * b] = map[x + a][y + b];
             map[x + a][y + b] = 4;
             map[x][y] -= 4;
-            playerPosition.setX(x + a);
-            playerPosition.setY(y + b);
+
+            playerPosition.setXY(x + a, y + b);
             printMapAndCommand(map, command, s);
             return;
         }
@@ -72,8 +83,8 @@ public class MovePlayer {
             map[x + 2 * a][y + 2 * b] = map[x + a][y + b];
             map[x + a][y + b] = map[x][y];
             map[x][y] = 9;
-            playerPosition.setX(x + a);
-            playerPosition.setY(y + b);
+
+            playerPosition.setXY(x + a, y + b);
             printMapAndCommand(map, command, s);
             return;
         }
@@ -86,8 +97,8 @@ public class MovePlayer {
         if (map[x + a][y + b] == 1 && map[x][y] == 5) {
             map[x + a][y + b] += 4;
             map[x][y] -= 4;
-            playerPosition.setX(x + a);
-            playerPosition.setY(y + b);
+
+            playerPosition.setXY(x + a, y + b);
             printMapAndCommand(map, command, s);
             return;
         }
@@ -103,23 +114,23 @@ public class MovePlayer {
                     (map[x + 2 * a][y + 2 * b] + map[x + a][y + b]) % 10; // 9 = 2
                 map[x + a][y + b] += 2;
                 map[x][y] = 9;
-                playerPosition.setX(x + a);
-                playerPosition.setY(y + b);
+
+                playerPosition.setXY(x + a, y + b);
                 return;
             }
             map[x + 2 * a][y + 2 * b] += (map[x + a][y + b] + 1) % 10; // 9 += 3 + 1 + 9 / 10
             map[x + a][y + b] += 2;
             map[x][y] = 9;
-            playerPosition.setX(x + a);
-            playerPosition.setY(y + b);
+
+            playerPosition.setXY(x + a, y + b);
             return;
         }
         if (map[x + 2 * a][y + 2 * b] == 1) {
             map[x + 2 * a][y + 2 * b] += 2; // 3
             map[x + a][y + b] += 2; //  ab 2    4   ab 3  5
             map[x][y] = 9;
-            playerPosition.setX(x + a);
-            playerPosition.setY(y + b);
+
+            playerPosition.setXY(x + a, y + b);
             return;
         }
     }
@@ -146,8 +157,7 @@ public class MovePlayer {
             map[x][y] -= 4;
         }
 
-        playerPosition.setX(x + a);
-        playerPosition.setY(y + b);
+        playerPosition.setXY(x + a, y + b);
 
     }
 

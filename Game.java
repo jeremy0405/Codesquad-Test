@@ -11,11 +11,11 @@ public class Game {
             Position playerPosition = mapReader.getPlayerPosition().get(i - 1);
             System.out.println("Stage :" + i);
             PrintMap.print(map);
-            int j = 0;
-            while (j < 3) {
+            boolean isKeep = true;
+            while (isKeep) {
                 char[] commands = userInput.userInput();
                 movePlayer.move(map, commands, playerPosition);
-                j++;
+                isKeep = movePlayer.checkEndGame(map);
             }
         }
 
