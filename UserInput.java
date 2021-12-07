@@ -6,8 +6,8 @@ public class UserInput {
 
     public char[] userInput() {
         System.out.print("Jerry's SOKOBAN> ");
-        String userinput = sc.nextLine().toUpperCase();
-        return userinput.toCharArray();
+        String input = sc.nextLine();
+        return input.toCharArray();
     }
 
     public void close() {

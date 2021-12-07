@@ -33,7 +33,7 @@ public class Game {
     private int[][] initSetting(int stage) {
         int[][] map = mapReader.getStages(stage);
         playerPosition = mapReader.getPlayerPosition().get(stage - 1);
-        classification.setCount(0);
+        classification.setCount();
         System.out.println("Stage :" + stage);
         nowStage = stage;
         CopyMap.copyInitialMap(map);

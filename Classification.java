@@ -1,8 +1,11 @@
+import java.util.Stack;
+
 public class Classification {
 
     private final MovePlayer movePlayer;
     private final MapReader mapReader;
-    private int count;
+    public static final Stack<Character> rewind = new Stack<>();
+    public static final Stack<Character> reRewind = new Stack<>();
 
     Classification(MovePlayer movePlayer, MapReader mapReader) {
         this.movePlayer = movePlayer;
@@ -24,12 +27,33 @@ public class Classification {
         if (moveCommand(map, command, x, y, playerPosition)) {
             return;
         }
-        if (command == 'Q') {
+        if (command == 'Q' || command == 'q') {
             System.out.println("Bye~");
             System.exit(0);
         }
-        if (command == 'R') {
+        if (command == 'R' || command == 'r') {
             resetGame(map, playerPosition, stage);
+            return;
+        }
+        if (command == 'u') {
+            //todo 되돌리기
+            if (!rewind.isEmpty()) {
+                char tmp = rewind.pop();
+                //reverseMoveCommand
+//            reverseMoveCommand(map, tmp, x, y, playerPosition, stage);
+                reRewind.push(tmp);
+            } else {
+                System.out.println("초기 상태입니다, 더이상 되돌릴 수 없습니다!!");
+            }
+            return;
+        }
+        if (command == 'U') {
+            if (!reRewind.isEmpty()) {
+                //todo 이 때는 rewind Stack에 값을 저장하지 않고 움직여야 함.
+                validateCommand(map, reRewind.pop(), x, y, playerPosition, stage);
+            } else {
+                System.out.println("더이상 저장된 되돌리기 값이 없습니다!!");
+            }
             return;
         }
         Print.printMap(map);
@@ -37,33 +61,35 @@ public class Classification {
     }
 
     private boolean moveCommand(int[][] map, char command, int x, int y, Position playerPosition) {
-        if (command == 'A') {
-            moveAndCount(map, command, x, y, playerPosition, 0, -1, ": 왼쪽으로 이동합니다.");
+        if (command == 'A' || command == 'a') {
+            if (movePlayer.moveWASD(map, command, x, y, 0, -1, playerPosition, ": 왼쪽으로 이동합니다.")) {
+                Classification.rewind.push('A');
+            }
             return true;
         }
-        if (command == 'D') {
-            moveAndCount(map, command, x, y, playerPosition, 0, 1, ": 오른쪽으로 이동합니다.");
+        if (command == 'D' || command == 'd') {
+            if (movePlayer.moveWASD(map, command, x, y, 0, 1, playerPosition, ": 오른쪽으로 이동합니다.")) {
+                Classification.rewind.push('D');
+            }
             return true;
         }
-        if (command == 'W') {
-            moveAndCount(map, command, x, y, playerPosition, -1, 0, ": 위로 이동합니다.");
+        if (command == 'W' || command == 'w') {
+            if (movePlayer.moveWASD(map, command, x, y, -1, 0, playerPosition, ": 위로 이동합니다.")) {
+                Classification.rewind.push('W');
+            }
             return true;
         }
-        if (command == 'S') {
-            moveAndCount(map, command, x, y, playerPosition, 1, 0, ": 아래로 이동합니다.");
+        if (command == 'S' || command == 's') {
+            if (movePlayer.moveWASD(map, command, x, y, 1, 0, playerPosition, ": 아래로 이동합니다.")) {
+                Classification.rewind.push('S');
+            }
             return true;
         }
         return false;
     }
 
-    private void moveAndCount(int[][] map, char command, int x, int y, Position playerPosition,
-        int a, int b, String s) {
-        movePlayer.moveWASD(map, command, x, y, a, b, playerPosition, s);
-        count++;
-    }
-
     private void resetGame(int[][] map, Position playerPosition, int stage) {
-        this.count = 0;
+        this.rewind.clear();
         Position initPosition = mapReader.getInitPosition().get(stage - 1);
         playerPosition.setXY(initPosition.getX(), initPosition.getY());
         CopyMap.copyMap(map);
@@ -72,10 +98,11 @@ public class Classification {
     }
 
     public int getCount() {
-        return count;
+        return rewind.size();
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void setCount() {
+        this.rewind.clear();
+        this.reRewind.clear();
     }
 }
