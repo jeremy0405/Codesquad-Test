@@ -49,8 +49,7 @@ public class Classification {
         }
         if (command == 'U') {
             if (!reRewind.isEmpty()) {
-                //todo 이 때는 rewind Stack에 값을 저장하지 않고 움직여야 함.
-                validateCommand(map, reRewind.pop(), x, y, playerPosition, stage);
+                justMoveCommand(map, reRewind.pop(), x, y, playerPosition);
             } else {
                 System.out.println("더이상 저장된 되돌리기 값이 없습니다!!");
             }
@@ -86,6 +85,24 @@ public class Classification {
             return true;
         }
         return false;
+    }
+
+    private void justMoveCommand(int[][] map, char command, int x, int y, Position playerPosition) {
+        if (command == 'A') {
+            movePlayer.moveWASD(map, command, x, y, 0, -1, playerPosition, ": 왼쪽으로 이동합니다.");
+            return;
+        }
+        if (command == 'D') {
+            movePlayer.moveWASD(map, command, x, y, 0, 1, playerPosition, ": 오른쪽으로 이동합니다.");
+            return;
+        }
+        if (command == 'W') {
+            movePlayer.moveWASD(map, command, x, y, -1, 0, playerPosition, ": 위로 이동합니다.");
+            return;
+        }
+        if (command == 'S' || command == 's') {
+            movePlayer.moveWASD(map, command, x, y, 1, 0, playerPosition, ": 아래로 이동합니다.");
+        }
     }
 
     private void resetGame(int[][] map, Position playerPosition, int stage) {
