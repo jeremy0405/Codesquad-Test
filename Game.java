@@ -10,6 +10,7 @@ public class Game {
             int[][] map = mapReader.getStages(i);
             Position playerPosition = mapReader.getPlayerPosition().get(i - 1);
             System.out.println("Stage :" + i);
+            CopyMap.copyInitialMap(map);
             PrintMap.print(map);
             boolean isKeep = true;
             while (isKeep) {
@@ -18,9 +19,6 @@ public class Game {
                 isKeep = movePlayer.checkEndGame(map);
             }
         }
-
-
-
 
     }
 
