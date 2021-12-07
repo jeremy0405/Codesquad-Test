@@ -185,4 +185,271 @@ MapReader 객체, UserInput 객체, MovePlayer 객체, Stage 2의 mapdata를 2�
 
 ## 3단계
 
+**Revision 번호** : 52
+
+구현 결과
+
+![3단계](https://user-images.githubusercontent.com/81368630/145021231-d70c4b2d-62ca-48b6-9bf3-1c59fcba860a.gif)
+
+
+
+### 구현방법
+
+|기호 | 의미 | 저장값 |
+|--|--|--|
+|   | 빈칸| 0 |
+| O |구멍 | 1 |
+| o  | 공 | 2 |
+| 0(mapdata) ⊙(출력 때만)  | 구멍 + 공 | 3 |
+| P  | 플레이어 | 4 |
+| P|플레이어 + 구멍  /이하(플+구)| 5 |
+| # | 벽 | 9|
+
+<br>
+이동 구현을 편리하게 하기 위해서 위와 같이 기호에 따라 저장값을 다뤘습니다.
+
+자세한 내용은 `MovePlayer` 클래스에서 다루겠습니다.
+
+<br>
+
+큰 그림만 간략히 짚은 후 자세한 내용은 클래스 설명을 통해 하겠습니다.
+
+Main 클래스에서 Game 클래스 객체 생성 후 게임을 실행합니다.
+
+Game 클래스는 생성자를 통해 `init()` 메서드를 통해 초기화한 후 `run()`메서드를 통해 게임 세팅과 출력 및 게임을 실행합니다.
+
+`init()` 메서드는 게임 구동에 필요한 객체를 생성합니다.
+
+`run()` 메서드는 정보 출력, Stage 개수만큼 반복문을 통해 게임을 실행합니다.
+
+`run()`을 통해 게임 실행 시 `사용자 입력 -> 명령어 판단 -> 유효 명령일 시 이동 or 종료 or 리셋 실행 -> Map 프린트 -> 정답확인` 과정을 반복합니다.
+
+<br>  
+
+###  Main 클래스
+
+game 객체 생성 후 `run()` 메서드를 호출해 게임을 시작합니다.
+
+<br>
+
+### Game 클래스
+
+클래스 변수 : `nowStage` (현재 진행중인 Stage 단계 값 저장) (Stage 리셋 시 필요함)
+
+인스턴스 변수 : `mapReader, userInput, playerPosition, classification`
+
+#### 생성자
+`init()` 메서드를 호출합니다.
+
+#### init()
+`mapReader, userInput, movePlayer, classification` 객체를 생성합니다.
+
+#### run()
+Print 클래스의 static 메서드 `printStartMessage(), stageEndPrint(), gameEndPrint(), printMap()` 을 통해 적절한 때에 필요한 정보를 출력합니다.
+
+총 Stage 개수를 mapReader로부터 읽어와 Stage 수만큼 반복문을 통해 Stage별 게임을 실행합니다.
+
+반복문 안에는 Stage 시작 시 초기세팅하는 `initSetting()` 메서드와 정답을 맞추거나 Q명령을 통해 종료되기 전까지 게임을 진행하는 `playGame()`메서드, 출력메서드가 있습니다.
+
+마지막으로 userInput 객체의 Scanner를 close()하는 메서드를 호출합니다.
+
+#### initSetting()
+Stage 정보를 초기 세팅하는 메서드입니다.
+
+숫자로 지도 데이터를 가지고 있는 map, player의 위치 정보를 가지고 있는 playerPosition, 이동 시 카운트 초기화, 현재 스테이지를 nowStage에 저장, 스테이지별 map 데이터를 CopyMap 데이터에 저장합니다.
+
+#### playGame()
+
+Stage별 게임을 진행하는 메서드입니다. 정답을 맞출 때까지 반복됩니다.
+
+`userInput.userInput()`을 통해 사용자 입력을 받고
+
+`classification.performCommands()`를 통해 입력이 유효하면 이동 or 종료 or 리셋을 입력 후 map을 출력하고 입력이 유효하지 않다면 경고문구를 출력하도록 합니다.
+
+`checkEndGame()`메서드를 통해 map이 정답인지 확인합니다.
+
+
+#### checkEndGame(), checkMapEndGame()
+
+map이 정답인지 확인하는 메서드입니다. 정답일 시 `playGame()`메서드의 반복문이 종료되어 현재 Stage가 종료됩니다.
+
+<br>
+
+### MapReader 클래스
+
+2단계 MapReader와 거의 유사합니다. (mapdata를 읽은 후 stage 정보(Player 위치, stage 시작 column)를 저장)
+
+Stage reset을 구현하기 위한 Player의 초기 위치를 저장하는 `initPosition`을 만들었습니다.
+
+생성자에 `readMapFile()`메서드가 변경되었으며 다른 클래스의 String을 읽는 것이 아닌 `map.txt`파일을 읽어와 mapdata를 읽어옵니다.
+
+### 생성자
+
+`readMapFile()` 메서드로 `map.txt`파일로부터 지도 데이터 읽어옵니다.
+
+`countStage()` 메서드로 Stage 별 시작 column 저장합니다.
+
+### readMapfile()
+
+map.txt 로부터 지도 데이터를 읽어옵니다.
+
+오류 시 오류메시지 출력합니다.
+
+### countStage()
+
+지도 데이터를 통해 Stage 별 시작 column을 `stageLine`에 저장합니다.
+
+### getStageSize()
+
+스테이지의 총 개수(총 Stage 라운드)를 반환합니다.
+
+### getStages()
+
+매개변수로 Stage 단계를 받아서 그 단계에 맞는 map 정보를 return합니다.
+
+### setStartToLast()
+
+처음 읽을 column과 마지막 column을 반환합니다.
+
+### setMap()
+
+map을 지도 데이터에 맞게 세팅하는 메서드입니다.
+
+### classifyMap()
+
+지도 데이터를 구분하여 map에 알맞은 값을 배정합니다.
+
+P를 찾으면 Player 위치 정보를 PlayerPosition과 reset시 사용할 initPosition에 저장합니다.
+
+### getter
+
+이동을 구현하기 위해 플레이어의 위치 정보를 getter로 만들었습니다.
+
+reset을 구현하기 위해 플레이어의 초기 위치 정보를 getter로 만들었습니다.
+
+<br>
+
+### Position 클래스
+
+플레이어의 위치 정보를 가지고 있는 클래스입니다.
+
+플레이어의 위치는 한번에 set 하기 때문에 `setXY()` 메서드를 통해 x, y 좌표를 한번에 set 합니다.
+
+<br>
+
+### MovePlayer 클래스
+
+|기호 | 의미 | 저장값 |
+|--|--|--|
+|   | 빈칸| 0 |
+| O |구멍 | 1 |
+| o  | 공 | 2 |
+| 0(mapdata) ⊙(출력 때만)  | 구멍 + 공 | 3 |
+| P  | 플레이어 | 4 |
+| P|플레이어 + 구멍  /이하(플+구)| 5 |
+| # | 벽 | 9|
+
+**위의 설정으로 한 이유**
+(플레이어 현재 위치 (x, y), 움직일 위치 (x + a, y + b), 같은방향 2칸 뒤 (x+2*a,y+2*b))
+1. map 기본설정이 필요 없어짐 (default 값이 0이라 빈칸이 default 설정으로 됨)
+2. 이동 & 공밀기 구현이 편해짐
+    1. 못 움직이는 상황 (return)
+    2. 공 미는 상황
+        - moveBall() 메서드 -> (x,y)값 4 뺌, (x+a,y+b)값 2더함, (x+2*a,y+2*b)값 2 더함
+    3. 그냥 플레이어만 움직이는 상황 (realMove() 메서드)
+        - realMove() 메서드 -> (x,y)값 4 뺌, (x+a,y+b)값 4더함
+
+**정리한 로직**
+![iOS 이미지](https://user-images.githubusercontent.com/81368630/145030604-2e9b0d4c-129c-4209-a481-99e9ace94220.jpg)
+
+#### moveWASD()
+
+w, a, s, d 입력이 들어왔을 때 실행되는 메서드입니다.
+
+위 정리처럼 1. 못 움직이는 상황에서는 return / 2. 공 미는 상황은 moveBall() 호출 / 3. 그냥 이동하는 상황에서 reaMove() 호출을 하고 있습니다.
+
+#### moveBall()
+플레이어가 공을 움직이는 로직입니다.
+
+플레이어 현재 위치에 4를 빼고, 플레이어가 이동할 위치에 2를 더하고 2칸 뒤의 위치에 2를 더해줍니다.
+
+이후 움직인 위치를 playerPosition에 저장합니다.
+
+#### realMove()
+플레이어만 움직이는 로직입니다.
+
+플레이어 현재 위치에 4를 빼고 플레이어가 이동할 위치에 4를 더해줍니다. 이후 움직인 위치를 playerPosition에 저장합니다.
+
+#### PrintMapAndCommand()
+
+map 데이터 출력과 이동문구를 출력합니다.
+
+
+<br>
+
+### UserInput 클래스
+Scanner를 통해 사용자의 input을 받은 후 char[] 로 반환합니다.
+
+2단계와 동일합니다.
+
+
+<br>
+
+### Print 클래스
+
+map data, 게임시작시, 각 스테이지 클리어시, 모든 스테이지 클리어시 출력하는 메서드를 가지고 있습니다.
+
+
+<br>
+
+### CopyMap 클래스
+
+Stage마다 map을 copy해서 stageMap에 저장한 후에 reset을 위해 저장된 stageMap을 map으로 copy 하는 역할을 합니다.
+
+#### copyInitialMap()
+
+초기 map 상태를 stageMap에 저장하는 메서드입니다.
+
+#### copyMap()
+
+reset 시 map을 초기 stageMap 상태로 변환해주는 기능을 하는 메서드입니다.
+
+<br>
+
+### Classification 클래스
+
+사용자의 여러 입력값을 하나씩 순차적으로 실행합니다.
+
+유효한 명령어(이동, 종료, 리셋)면 명령을 수행하는 메서드를 호출합니다.
+
+이동 명령어 시 count를 1 증가해서 Stage 종료 시 이동 횟수를 출력할 수 있도록 합니다.
+
+#### 생성자
+movePlayer와 mapReader를 생성자로 생성합니다.
+
+#### performCommands()
+
+여러개의 사용자 입력값을 하나씩 수행합니다.
+
+#### validateCommand()
+
+이동, 종료, 리셋 명령어 시 알맞은 메서드를 호출하고 유효하지 않은 명령 시 현재 지도와 경고문구를 출력합니다.
+
+#### moveCommand()
+명령이 w a s d 인지 확인하고 맞을 시 이동하는 메서드를 호출합니다.
+
+#### moveAndCount()
+이동하는 메서드 호출 후 count를 1 증가하여 이동 횟수를 체크합니다.
+
+#### resetGame()
+R 입력 시 실행되며 Stage를 초기화합니다.
+
+count 초기화, playerPosition 초기화, map 초기화 한 후 초기 상태의 map을 출력합니다.
+
+#### 게터, 세터
+
+이동 횟수 출력 및 초기화할 수 있도록 count 변수에 접근 할 수 있는 게터와 세터를 설정했습니다.
+
+  <br>
+
 ## 4단계
