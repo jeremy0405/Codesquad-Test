@@ -12,7 +12,7 @@ public class Print {
                         System.out.print("o");
                         break;
                     case 3:
-                        System.out.print("0");
+                        System.out.print("⊙");
                         break;
                     case 4:
                         System.out.print("P");
@@ -44,7 +44,7 @@ public class Print {
     }
 
     public static void gameStartMessage() {
-        
+
         System.out.println("제리의 소코반에 오신 것을 환영합니다!!");
         System.out.println("===============================================================");
         System.out.println("**************************소코반 규칙****************************");
