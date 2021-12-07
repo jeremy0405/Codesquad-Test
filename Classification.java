@@ -36,11 +36,11 @@ public class Classification {
             return;
         }
         if (command == 'u') {
-            //todo 되돌리기
             if (!rewind.isEmpty()) {
                 char tmp = rewind.pop();
-                //reverseMoveCommand
+                //todo
 //            reverseMoveCommand(map, tmp, x, y, playerPosition, stage);
+                reverseMoveCommand(map, tmp, x, y, playerPosition);
                 reRewind.push(tmp);
             } else {
                 System.out.println("초기 상태입니다, 더이상 되돌릴 수 없습니다!!");
@@ -100,8 +100,26 @@ public class Classification {
             movePlayer.moveWASD(map, command, x, y, -1, 0, playerPosition, ": 위로 이동합니다.");
             return;
         }
-        if (command == 'S' || command == 's') {
+        if (command == 'S') {
             movePlayer.moveWASD(map, command, x, y, 1, 0, playerPosition, ": 아래로 이동합니다.");
+        }
+    }
+
+    private void reverseMoveCommand(int[][] map, char command, int x, int y, Position playerPosition) {
+        if (command == 'A') {
+            movePlayer.reverseMoveWASD(map, command, x, y, 0, -1, playerPosition);
+            return;
+        }
+        if (command == 'D') {
+            movePlayer.reverseMoveWASD(map, command, x, y, 0, 1, playerPosition);
+            return;
+        }
+        if (command == 'W') {
+            movePlayer.reverseMoveWASD(map, command, x, y, -1, 0, playerPosition);
+            return;
+        }
+        if (command == 'S') {
+            movePlayer.reverseMoveWASD(map, command, x, y, 1, 0, playerPosition);
         }
     }
 
@@ -119,7 +137,7 @@ public class Classification {
     }
 
     public void setCount() {
-        this.rewind.clear();
-        this.reRewind.clear();
+        rewind.clear();
+        reRewind.clear();
     }
 }
