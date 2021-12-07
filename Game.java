@@ -51,10 +51,17 @@ public class Game {
 
     private boolean checkEndGame(int[][] map) {
         for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[i].length; j++) {
-                if (map[i][j] == 1 || map[i][j] == 2) {
-                    return true;
-                }
+            if (checkMapEndGame(map, i)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkMapEndGame(int[][] map, int i) {
+        for (int j = 0; j < map[i].length; j++) {
+            if (map[i][j] == 1 || map[i][j] == 2) {
+                return true;
             }
         }
         return false;

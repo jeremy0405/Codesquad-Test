@@ -19,32 +19,14 @@ public class Classification {
 
     }
 
-    private void validateCommand(int[][] map, char command, int x, int y, Position playerPosition, int stage) {
-
-        if (command == 'A') {
-            movePlayer.moveWASD(map, command, x, y, 0, -1, playerPosition, ": 왼쪽으로 이동합니다.");
-            count++;
-            return;
-        }
-        if (command == 'D') {
-            movePlayer.moveWASD(map, command, x, y, 0, 1, playerPosition, ": 오른쪽으로 이동합니다.");
-            count++;
-            return;
-        }
-        if (command == 'W') {
-            movePlayer.moveWASD(map, command, x, y, -1, 0, playerPosition, ": 위로 이동합니다.");
-            count++;
-            return;
-        }
-        if (command == 'S') {
-            movePlayer.moveWASD(map, command, x, y, 1, 0, playerPosition, ": 아래로 이동합니다.");
-            count++;
+    private void validateCommand(int[][] map, char command, int x, int y, Position playerPosition,
+        int stage) {
+        if (moveCommand(map, command, x, y, playerPosition)) {
             return;
         }
         if (command == 'Q') {
             System.out.println("Bye~");
             System.exit(0);
-            return;
         }
         if (command == 'R') {
             resetGame(map, playerPosition, stage);
@@ -52,6 +34,32 @@ public class Classification {
         }
         Print.printMap(map);
         System.out.println(command + ": 해당 명령어는 존재하지 않습니다.");
+    }
+
+    private boolean moveCommand(int[][] map, char command, int x, int y, Position playerPosition) {
+        if (command == 'A') {
+            moveAndCount(map, command, x, y, playerPosition, 0, -1, ": 왼쪽으로 이동합니다.");
+            return true;
+        }
+        if (command == 'D') {
+            moveAndCount(map, command, x, y, playerPosition, 0, 1, ": 오른쪽으로 이동합니다.");
+            return true;
+        }
+        if (command == 'W') {
+            moveAndCount(map, command, x, y, playerPosition, -1, 0, ": 위로 이동합니다.");
+            return true;
+        }
+        if (command == 'S') {
+            moveAndCount(map, command, x, y, playerPosition, 1, 0, ": 아래로 이동합니다.");
+            return true;
+        }
+        return false;
+    }
+
+    private void moveAndCount(int[][] map, char command, int x, int y, Position playerPosition,
+        int a, int b, String s) {
+        movePlayer.moveWASD(map, command, x, y, a, b, playerPosition, s);
+        count++;
     }
 
     private void resetGame(int[][] map, Position playerPosition, int stage) {

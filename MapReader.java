@@ -94,7 +94,7 @@ public class MapReader {
         if (line.charAt(j) == 'o') {
             map[k][j] = 2;
         }
-        if (line.charAt(j) == '0'){
+        if (line.charAt(j) == '0') {
             map[k][j] = 3;
         }
         if (line.charAt(j) == 'P') {

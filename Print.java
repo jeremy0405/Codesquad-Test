@@ -4,32 +4,33 @@ public class Print {
         System.out.println("");
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
-                switch (map[i][j]) {
-                    case 1:
-                        System.out.print("O");
-                        break;
-                    case 2:
-                        System.out.print("o");
-                        break;
-                    case 3:
-                        System.out.print("⊙");
-                        break;
-                    case 4:
-                        System.out.print("P");
-                        break;
-                    case 5:
-                        System.out.print("P");
-                        break;
-                    case 9:
-                        System.out.print("#");
-                        break;
-                    default:
-                        System.out.print(" ");
-                }
+                printAfterClassify(map, i, j);
             }
             System.out.println("");
         }
         System.out.println("");
+    }
+
+    private static void printAfterClassify(int[][] map, int i, int j) {
+        switch (map[i][j]) {
+            case 1:
+                System.out.print("O");
+                break;
+            case 2:
+                System.out.print("o");
+                break;
+            case 3:
+                System.out.print("⊙");
+                break;
+            case 4: case 5:
+                System.out.print("P");
+                break;
+            case 9:
+                System.out.print("#");
+                break;
+            default:
+                System.out.print(" ");
+        }
     }
 
     public static void stageEndPrint(int stage, Classification classification) {

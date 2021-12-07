@@ -2,18 +2,15 @@ public class MovePlayer {
 
     public void moveWASD(int[][] map, char command, int x, int y, int a,
         int b, Position playerPosition, String s) {
-
-        String warning = ": (경고!) 해당 명령을 수행할 수 없습니다!";
-
         if (map[x + a][y + b] == 9) {
-            printMapAndCommand(map, command, warning);
+            printMapAndCommand(map, command, ": (경고!) 해당 명령을 수행할 수 없습니다!");
             return;
         }
         if ((map[x + a][y + b] == 2 || map[x + a][y + b] == 3) &&
             (map[x + 2 * a][y + 2 * b] == 9
                 || map[x + 2 * a][y + 2 * b] == 2
                 || map[x + 2 * a][y + 2 * b] == 3)) {
-            printMapAndCommand(map, command, warning);
+            printMapAndCommand(map, command, ": (경고!) 해당 명령을 수행할 수 없습니다!");
             return;
         }
         if (map[x + a][y + b] == 2 || map[x + a][y + b] == 3) {
