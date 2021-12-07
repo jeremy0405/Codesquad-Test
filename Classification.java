@@ -6,6 +6,10 @@ public class Classification {
     private final MapReader mapReader;
     public static final Stack<Character> rewind = new Stack<>();
     public static final Stack<Character> reRewind = new Stack<>();
+    // true 이면 공을 민 것
+    // flase 이면 공을 밀지 않은 것
+    public static final Stack<Boolean> pushBall = new Stack<>();
+    private char previousCommand;
 
     Classification(MovePlayer movePlayer, MapReader mapReader) {
         this.movePlayer = movePlayer;
@@ -25,6 +29,7 @@ public class Classification {
     private void validateCommand(int[][] map, char command, int x, int y, Position playerPosition,
         int stage) {
         if (moveCommand(map, command, x, y, playerPosition)) {
+            previousCommand = command;
             return;
         }
         if (command == 'Q' || command == 'q') {
@@ -38,21 +43,27 @@ public class Classification {
         if (command == 'u') {
             if (!rewind.isEmpty()) {
                 char tmp = rewind.pop();
-                //todo
-//            reverseMoveCommand(map, tmp, x, y, playerPosition, stage);
                 reverseMoveCommand(map, tmp, x, y, playerPosition);
                 reRewind.push(tmp);
+                previousCommand = command;
             } else {
-                System.out.println("초기 상태입니다, 더이상 되돌릴 수 없습니다!!");
+                System.out.println("더이상 되돌릴 수 없습니다!!");
+            }
+            return;
+        }
+        if ( previousCommand != 'u') {
+            reRewind.clear();
+        }
+        if (command == 'U' && previousCommand == 'u') {
+            if (!reRewind.isEmpty()) {
+                justMoveCommand(map, reRewind.pop(), x, y, playerPosition);
+            } else {
+                System.out.println("되돌리기의 되돌리기가 불가능합니다!!");
             }
             return;
         }
         if (command == 'U') {
-            if (!reRewind.isEmpty()) {
-                justMoveCommand(map, reRewind.pop(), x, y, playerPosition);
-            } else {
-                System.out.println("더이상 저장된 되돌리기 값이 없습니다!!");
-            }
+            System.out.println("되돌리기의 되돌리기가 불가능합니다!!");
             return;
         }
         Print.printMap(map);
@@ -124,7 +135,7 @@ public class Classification {
     }
 
     private void resetGame(int[][] map, Position playerPosition, int stage) {
-        this.rewind.clear();
+        setCount();
         Position initPosition = mapReader.getInitPosition().get(stage - 1);
         playerPosition.setXY(initPosition.getX(), initPosition.getY());
         CopyMap.copyMap(map);
@@ -139,5 +150,6 @@ public class Classification {
     public void setCount() {
         rewind.clear();
         reRewind.clear();
+        pushBall.clear();
     }
 }

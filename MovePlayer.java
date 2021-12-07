@@ -15,10 +15,12 @@ public class MovePlayer {
         }
         if (map[x + a][y + b] == 2 || map[x + a][y + b] == 3) {
             moveBall(map, x, y, a, b, playerPosition);
+            Classification.pushBall.push(true);
             printMapAndCommand(map, command, s);
             return true;
         }
         realMove(map, x, y, a, b, playerPosition);
+        Classification.pushBall.push(false);
         printMapAndCommand(map, command, s);
         return true;
     }
@@ -41,26 +43,29 @@ public class MovePlayer {
         System.out.println(command + s);
     }
 
-    public boolean reverseMoveWASD(int[][] map, char command, int x, int y, int a,
+    public void reverseMoveWASD(int[][] map, char command, int x, int y, int a,
         int b, Position playerPosition) {
-
-        // todo x + a, y + b -> 가는 방향 이건 맞네
-        if (map[x + a][y + b] == 2 || map[x + a][y + b] == 3) {
-            moveReverseBall(map, x, y, a, b, playerPosition);
-            printMapAndCommand(map, command, " 되돌리기");
-            return true;
+        boolean pushBall = Classification.pushBall.pop();
+        if (pushBall) {
+            // todo x + a, y + b -> 가는 방향 이건 맞네
+            if (map[x + a][y + b] == 2 || map[x + a][y + b] == 3) {
+                moveReverseBall(map, x, y, a, b, playerPosition);
+                printMapAndCommand(map, command, " 되돌리기");
+                return;
+            }
         }
+//        if (pushBall) {
+//
+//        }
         //todo 완료.
         moveReverse(map, x, y, a, b, playerPosition);
         printMapAndCommand(map, command, " 되돌리기");
-        return true;
     }
 
     private void moveReverseBall(int[][] map, int x, int y, int a, int b, Position playerPosition) {
         map[x][y] -= 2;
         map[x + a][y + b] -= 2;
         map[x - a][y - b] += 4;
-
 
         playerPosition.setXY(x - a, y - b);
     }
