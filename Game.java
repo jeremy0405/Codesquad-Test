@@ -19,12 +19,11 @@ public class Game {
 
     public void run() {
         int totalStage = mapReader.getStageSize();
-
+        Print.gameStartMessage();
         for (int stage = 1; stage <= totalStage; stage++) {
             int[][] map = initSetting(stage);
             boolean isKeep = true;
             playGame(map, isKeep, stage);
-
             Print.stageEndPrint(stage, classification);
         }
         Print.gameEndPrint();
