@@ -1,5 +1,19 @@
 # 구현과정 상세 설명
 
+<br>
+
+**코드 실행 방법**
+
+모든 단계는 Main.java 클래스에 메인 메서드가 있습니다.
+
+`javac Main.java -encoding utf-8`
+
+`java -Dfile.encoding=UTF-8 Main`
+
+을 통해 단계별 코드를 실행 할 수 있습니다.
+
+<br>
+
 ## 1단계
 
 <br>
@@ -191,6 +205,23 @@ MapReader 객체, UserInput 객체, MovePlayer 객체, Stage 2의 mapdata를 2�
 ## 3단계
 
 **Revision 번호** : 52 // hash 값 : 88b763a
+
+<br>
+
+Stage 별 정답
+
+|  |  |
+|--|--|
+| Stage |  정답|
+| 1| a |
+| 2|wsswddaaaa |
+| 3|sawdwawaasassdwddwdswawaasddaaassdwawdd |
+| 4|dassdawwdsassdddwwwadsssaaawwdsdsa |
+| 5|wawwdsdswaaaaassddwdwddswawaaasdwddsdsaadwwaasdaaassddwdwasdddwaa |
+
+
+<br>
+
 
 구현 결과
 
@@ -461,7 +492,20 @@ count 초기화, playerPosition 초기화, map 초기화 한 후 초기 상태�
 
 <br>
 
-**Revision 번호**: 76
+**Revision 번호**: 77
+
+<br>
+
+Stage 별 정답
+
+|  |  |
+|--|--|
+| Stage |  정답|
+| 1| a |
+| 2|wsswddaaaa |
+| 3|sawdwawaasassdwddwdswawaasddaaassdwawdd |
+| 4|dassdawwdsassdddwwwadsssaaawwdsdsa |
+| 5|wawwdsdswaaaaassddwdwddswawaaasdwddsdsaadwwaasdaaassddwdwasdddwaa |
 
 <br>
 
@@ -486,8 +530,11 @@ map_enc.txt 파일을 확인하면 바이너리로 저장하여 사람은 정보
 되돌리기 및 되돌리기 취소 기능, 2S, 4L 입력 기능
 
 ![1](https://user-images.githubusercontent.com/81368630/145156873-f588d796-fb19-4f2a-b100-300e015120df.jpg)
+
 ![2](https://user-images.githubusercontent.com/81368630/145156877-889032ba-e20f-44e8-bd61-abc37fdf3247.jpg)
+
 ![3](https://user-images.githubusercontent.com/81368630/145156879-7fc32bba-c4ce-4d4a-98e5-33f5a8df5ede.jpg)
+
 ![4](https://user-images.githubusercontent.com/81368630/145173486-c8bbf2ec-6de0-46a8-892b-641d4a9d3e55.jpg)
 
 
