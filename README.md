@@ -453,3 +453,73 @@ count 초기화, playerPosition 초기화, map 초기화 한 후 초기 상태�
   <br>
 
 ## 4단계
+<br>
+
+### 되돌리기 기능 및 되돌리기 취소 기능 구현
+
+u입력 시 초기 위치까지 되돌릴 수 있도록 했습니다.
+
+U입력 시 되돌리기를 취소할 수 있도록 했습니다. 다만 U는 이전의 명령이 u인 경우에만 실행 가능하도록 했습니다.
+
+(ex aaaa(좌4이동) uuuu(제자리로) UUUU(좌4이동))
+
+<br>
+
+#### UserInput 클래스
+
+기존에는 유저의 입력을 받은 후 대문자로 변환하여 return 했었습니다.
+
+하지만 u와 U 를 구분할 필요성이 생겨 대문자로 변환하지 않고 return 하도록 했습니다.
+
+<br>
+
+#### Classification 클래스
+
+사용자의 여러 입력값을 하나씩 실행하며 명령어를 분류한 후 적절한 메서드를 호출하는 클래스입니다.
+
+사용자 입력이 대문자, 소문자 모두 들어오기 때문에 조건문에 대,소문자에 대한 사항을 모두 추가했습니다.
+
+되돌리기 및 되돌리기 취소 시 수행해야 할 메서드와 필요한 변수들을 추가했습니다. `Stack 3개 : rewind, reRewind, pushBall`, `char previousCommad`, `int countU`
+
+u(되돌리기)
+- Stack(`rewind`)을 통해 플레이어가 움직일 때마다 push하며 u 입력 시 pop 하여 적절한 되돌리기 메서드(`reverseMoveCommand()`)를 호출합니다.
+- 플레이어가 공을 밀면서 움직인 것인지 공을 밀지 않고 움직인 것인지 판별하기 위해 `Stack<Boolean> pushBall`을 선언하여 판별합니다.
+- 플레이어가 공을 밀면서 움직였다면 u(되돌리기)에서는 공을 당기면서 움직이게 했습니다.
+- reset 시 clear() 합니다.
+
+U(되돌리기 취소)
+- Stack(`reRewind`)을 통해 되돌리기 입력을 push하며 U 입력 시 pop 하여 적절한 되돌리기 취소메서드를 호출합니다.
+- U로 되돌리기 취소를 할 시 u의 Stack인 `rewind`에 push하지 않기 위해서 `justMoveCommand()` 메서드를 사용합니다.
+- U로 되돌리기 취소를 할 시 이동횟수를 추가해줘야 하기 때문에 `justMoveCommand()` 호출마다 `countU++` 해줍니다.
+- 이전 명령어가 u가 아니라면 U의 Stack `reRewind`를 clear() 합니다.
+- reset 시 clear() 합니다.
+
+사용자 명령 횟수는 `rewind.size() + countU` 를 통해 대체했습니다.
+
+기존의 `count`로 명령 횟수를 체크하기 위해서는 count를 이동, 리셋, 되돌리기, 되돌리기 취소 명령마다 ++ 혹은 -- 해줘야 했지만 countU는 U 명령일 때만 ++ 해주면 되서 코드가 간결해 졌습니다.
+
+<br>
+
+#### MovePlayer 클래스
+
+기존에 있었던 `moveWASD(), moveBall(), realMove()` 메서드를 Classification 클래스에서 이동명령 또는 되돌리기 취소명령 시 호출합니다.
+
+`moveWASD()` 메서드에 공을 밀고 움직였는지 또는 플레이어만 움직였는지 결과를 `Stack<Boolean> pushBall`에 저장합니다.
+
+<br>
+
+`reverseMoveWASD(), moveReverseBall(), moveReverse()` 메서드를 새로 생성했습니다. 이 메서드는 되돌리기를 위해 공을 당기도록 설계했습니다.
+
+되돌리기 시 `rewind`에 저장되어있는 명령은 이미 이동한 명령이므로 이동 불가능한 상황 예외사항은 메서드에 추가하지 않았습니다.
+
+`Stack<Boolean> pushBall` 의 결과에 따라 공을 당길 것인지 플레이어만 움직일 것인지 판단하여 적절한 메서드를 호출합니다.
+
+`moveReverseBall()` 공을 당기는 메서드입니다.
+
+`moveReverse()` 플레이어만 이전 위치로 바꾸는 메서드입니다.
+
+<br>
+
+#### Print 클래스
+
+게임시작시 설명에 u, U에 대한 사항을 추가했습니다. 
