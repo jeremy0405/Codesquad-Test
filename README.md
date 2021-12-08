@@ -479,7 +479,7 @@ U입력 시 되돌리기를 취소할 수 있도록 했습니다. 다만 U는 �
 
 사용자 입력이 대문자, 소문자 모두 들어오기 때문에 조건문에 대,소문자에 대한 사항을 모두 추가했습니다.
 
-되돌리기 및 되돌리기 취소 시 수행해야 할 메서드와 필요한 변수들을 추가했습니다. `Stack 3개 : rewind, reRewind, pushBall`, `char previousCommad`, `int countU`
+되돌리기 및 되돌리기 취소 시 수행해야 할 메서드와 필요한 변수들을 추가했습니다. `Stack 3개 : rewind, reRewind, pushBall`, `char previousCommad`
 
 u(되돌리기)
 - Stack(`rewind`)을 통해 플레이어가 움직일 때마다 push하며 u 입력 시 pop 하여 적절한 되돌리기 메서드(`reverseMoveCommand()`)를 호출합니다.
@@ -488,15 +488,13 @@ u(되돌리기)
 - reset 시 clear() 합니다.
 
 U(되돌리기 취소)
-- Stack(`reRewind`)을 통해 되돌리기 입력을 push하며 U 입력 시 pop 하여 적절한 되돌리기 취소메서드를 호출합니다.
-- U로 되돌리기 취소를 할 시 u의 Stack인 `rewind`에 push하지 않기 위해서 `justMoveCommand()` 메서드를 사용합니다.
-- U로 되돌리기 취소를 할 시 이동횟수를 추가해줘야 하기 때문에 `justMoveCommand()` 호출마다 `countU++` 해줍니다.
+- Stack(`reRewind`)을 통해 되돌리기 입력을 push하며 U 입력 시 pop 하여 본래의 이동메서드를 호출합니다.
 - 이전 명령어가 u가 아니라면 U의 Stack `reRewind`를 clear() 합니다.
 - reset 시 clear() 합니다.
 
-사용자 명령 횟수는 `rewind.size() + countU` 를 통해 대체했습니다.
+사용자 명령 횟수는 `rewind.size()`로 대체했습니다.
 
-기존의 `count`로 명령 횟수를 체크하기 위해서는 count를 이동, 리셋, 되돌리기, 되돌리기 취소 명령마다 ++ 혹은 -- 해줘야 했지만 countU는 U 명령일 때만 ++ 해주면 되서 코드가 간결해 졌습니다.
+기존의 `count`로 명령 횟수를 체크하기 위해서는 count를 이동, 리셋, 되돌리기, 되돌리기 취소 명령마다 ++ 혹은 -- 해줘야 했지만 `rewind.size()`를 통해 명령 횟수를 체크할 수 있어 코드가 간결해 졌습니다.
 
 <br>
 
