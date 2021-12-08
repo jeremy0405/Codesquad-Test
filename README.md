@@ -211,7 +211,7 @@ MapReader 객체, UserInput 객체, MovePlayer 객체, Stage 2의 mapdata를 2�
 Stage 별 정답
 
 | Stage | 정답 | 명령 횟수 |
-|--|--|
+|--|--|--|
 | 1| a | 1|
 | 2|wsswddaaaa | 10|
 | 3|sawdwawaasassdwddwdswawaasddaaassdwawdd |39 |
@@ -491,14 +491,14 @@ count 초기화, playerPosition 초기화, map 초기화 한 후 초기 상태�
 
 <br>
 
-**Revision 번호**: 78
+**Revision 번호**: 79
 
 <br>
 
 Stage 별 정답
 
 | Stage | 정답 | 명령 횟수 |
-|--|--|
+|--|--|--|
 | 1| a | 1|
 | 2|wsswddaaaa | 10|
 | 3|sawdwawaasassdwddwdswawaasddaaassdwawdd |39 |
