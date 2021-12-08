@@ -210,14 +210,13 @@ MapReader 객체, UserInput 객체, MovePlayer 객체, Stage 2의 mapdata를 2�
 
 Stage 별 정답
 
-|  |  |
+| Stage | 정답 | 명령 횟수 |
 |--|--|
-| Stage |  정답|
-| 1| a |
-| 2|wsswddaaaa |
-| 3|sawdwawaasassdwddwdswawaasddaaassdwawdd |
-| 4|dassdawwdsassdddwwwadsssaaawwdsdsa |
-| 5|wawwdsdswaaaaassddwdwddswawaaasdwddsdsaadwwaasdaaassddwdwasdddwaa |
+| 1| a | 1|
+| 2|wsswddaaaa | 10|
+| 3|sawdwawaasassdwddwdswawaasddaaassdwawdd |39 |
+| 4|dassdawwdsassdddwwwadsssaaawwdsdsa | 34|
+| 5|wawwdsdswaaaaassddwdwddswawaaasdwddsdsaadwwaasdaaassddwdwasdddwaa | 65|
 
 
 <br>
@@ -492,20 +491,19 @@ count 초기화, playerPosition 초기화, map 초기화 한 후 초기 상태�
 
 <br>
 
-**Revision 번호**: 77
+**Revision 번호**: 78
 
 <br>
 
 Stage 별 정답
 
-|  |  |
+| Stage | 정답 | 명령 횟수 |
 |--|--|
-| Stage |  정답|
-| 1| a |
-| 2|wsswddaaaa |
-| 3|sawdwawaasassdwddwdswawaasddaaassdwawdd |
-| 4|dassdawwdsassdddwwwadsssaaawwdsdsa |
-| 5|wawwdsdswaaaaassddwdwddswawaaasdwddsdsaadwwaasdaaassddwdwasdddwaa |
+| 1| a | 1|
+| 2|wsswddaaaa | 10|
+| 3|sawdwawaasassdwddwdswawaasddaaassdwawdd |39 |
+| 4|dassdawwdsassdddwwwadsssaaawwdsdsa | 34|
+| 5|wawwdsdswaaaaassddwdwddswawaaasdwddsdsaadwwaasdaaassddwdwasdddwaa | 65|
 
 <br>
 
