@@ -1,12 +1,14 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MapReader {
 
     private List<String> lines;
+    private String data;
     private final List<Integer> stageLine = new ArrayList<>();
     private final List<Position> playerPosition = new ArrayList<>();
     private final List<Position> initPosition = new ArrayList<>();
@@ -17,11 +19,13 @@ public class MapReader {
     }
 
     private void readMapFile() {
-        try {
-            this.lines = Files.readAllLines(Paths.get("map.txt"));
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("map_enc.txt"))) {
+            data = reader.readLine();
         } catch (IOException e) {
-            System.out.println("map.txt 파일 읽기 오류 발생");
+            System.out.println("map_enc.txt 파일 읽기 오류 발생");
         }
+        this.lines = Arrays.asList(Decode.binaryFileToString(data).split("\n"));
     }
 
     private void countStage() {
