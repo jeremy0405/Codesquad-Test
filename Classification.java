@@ -8,12 +8,10 @@ public class Classification {
     public static final Stack<Character> reRewind = new Stack<>();
     public static final Stack<Boolean> pushBall = new Stack<>();
     private char previousCommand;
-    private int countU;
 
     Classification(MovePlayer movePlayer, MapReader mapReader) {
         this.movePlayer = movePlayer;
         this.mapReader = mapReader;
-        this.countU = 0;
     }
 
     public void performCommands(int[][] map, char[] commands, Position playerPosition, int stage) {
@@ -56,8 +54,7 @@ public class Classification {
         }
         if (command == 'U' && previousCommand == 'u') {
             if (!reRewind.isEmpty()) {
-                justMoveCommand(map, reRewind.pop(), x, y, playerPosition);
-                countU++;
+                moveCommand(map, reRewind.pop(), x, y, playerPosition);
             } else {
                 System.out.println("되돌리기의 되돌리기가 불가능합니다!!");
             }
@@ -99,24 +96,6 @@ public class Classification {
         return false;
     }
 
-    private void justMoveCommand(int[][] map, char command, int x, int y, Position playerPosition) {
-        if (command == 'A') {
-            movePlayer.moveWASD(map, command, x, y, 0, -1, playerPosition, ": 왼쪽으로 이동합니다.");
-            return;
-        }
-        if (command == 'D') {
-            movePlayer.moveWASD(map, command, x, y, 0, 1, playerPosition, ": 오른쪽으로 이동합니다.");
-            return;
-        }
-        if (command == 'W') {
-            movePlayer.moveWASD(map, command, x, y, -1, 0, playerPosition, ": 위로 이동합니다.");
-            return;
-        }
-        if (command == 'S') {
-            movePlayer.moveWASD(map, command, x, y, 1, 0, playerPosition, ": 아래로 이동합니다.");
-        }
-    }
-
     private void reverseMoveCommand(int[][] map, char command, int x, int y, Position playerPosition) {
         if (command == 'A') {
             movePlayer.reverseMoveWASD(map, command, x, y, 0, -1, playerPosition);
@@ -145,14 +124,13 @@ public class Classification {
     }
 
     public int getCount() {
-        return rewind.size() + countU;
+        return rewind.size();
     }
 
     public void setCount() {
         rewind.clear();
         reRewind.clear();
         pushBall.clear();
-        countU = 0;
     }
 
 }

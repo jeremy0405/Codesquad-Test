@@ -21,6 +21,8 @@ public class Game {
         int totalStage = mapReader.getStageSize();
         Print.gameStartMessage();
         for (int stage = 1; stage <= totalStage; stage++) {
+            //todo stage = reset시 stage input값
+            // playGame 메서드 isKeep = false로 해야 함
             int[][] map = initSetting(stage);
             boolean isKeep = true;
             playGame(map, isKeep, stage);

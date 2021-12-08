@@ -14,5 +14,4 @@ public class UserInput {
         sc.close();
     }
 
-
 }

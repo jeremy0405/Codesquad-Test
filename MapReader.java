@@ -8,7 +8,6 @@ import java.util.List;
 public class MapReader {
 
     private List<String> lines;
-    private String data;
     private final List<Integer> stageLine = new ArrayList<>();
     private final List<Position> playerPosition = new ArrayList<>();
     private final List<Position> initPosition = new ArrayList<>();
@@ -19,7 +18,7 @@ public class MapReader {
     }
 
     private void readMapFile() {
-
+        String data = "";
         try (BufferedReader reader = new BufferedReader(new FileReader("map_enc.txt"))) {
             data = reader.readLine();
         } catch (IOException e) {
