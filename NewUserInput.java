@@ -7,7 +7,7 @@ public class NewUserInput {
     private final Scanner sc = new Scanner(System.in);
 
     public String[] userInput() {
-        System.out.print("Cube> ");
+        System.out.print("Jerry's Sokoban> ");
         String userinput = sc.nextLine();
         String[] splitCommand = splitInput(userinput);
         String[] commands = validateInput(splitCommand);
@@ -17,7 +17,7 @@ public class NewUserInput {
     private String[] validateInput(String[] command) {
         for (int i = 0; i < command.length; i++) {
             if (!command[i].equalsIgnoreCase("W") &&
-                !command[i].equalsIgnoreCase("A'") &&
+                !command[i].equalsIgnoreCase("A") &&
                 !command[i].equalsIgnoreCase("S") &&
                 !command[i].equalsIgnoreCase("D") &&
                 !command[i].equalsIgnoreCase("Q") &&
@@ -49,7 +49,8 @@ public class NewUserInput {
                 || userinput.charAt(i) == '3' || userinput.charAt(i) == '4'
                 || userinput.charAt(i) == '5') && (userinput.charAt(i + 1) == 'S' || userinput.charAt(i + 1) == 'L')) {
                 int idx = commandlist.size();
-                commandlist.set(idx, commandlist.get(idx) + userinput.charAt(i + 1));
+                commandlist.add(userinput.charAt(i) + "" + userinput.charAt(i + 1));
+                i++;
                 continue;
             }
             commandlist.add(userinput.charAt(i) + "");
