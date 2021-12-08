@@ -461,7 +461,7 @@ count 초기화, playerPosition 초기화, map 초기화 한 후 초기 상태�
 
 <br>
 
-**Revision 번호**: 66번대? // hash 값 :
+**Revision 번호**: 67 // hash 값 : 65e24d2 // 아직 확정 아님
 
 저장하기 불러오기 기능은 구현 하지 못했다. 지도 데이터 변환 프로그램과 되돌리기 기능 및 되돌리기 취소 기능을 구현했다.
 
@@ -469,11 +469,15 @@ count 초기화, playerPosition 초기화, map 초기화 한 후 초기 상태�
 
 구현결과
 
+변환된 지도 데이터 일부분
+
 map_enc.txt 파일을 확인하면 바이너리로 저장하여 사람은 정보를 읽을 수 없도록 했다.
 
 ![map_enc](https://user-images.githubusercontent.com/81368630/145155085-22735ba7-1983-4d82-9f35-21b8cae30c17.jpg)
 
 <br>
+
+되돌리기 및 되돌리기 취소 기능
 
 ![1](https://user-images.githubusercontent.com/81368630/145156873-f588d796-fb19-4f2a-b100-300e015120df.jpg)
 ![2](https://user-images.githubusercontent.com/81368630/145156877-889032ba-e20f-44e8-bd61-abc37fdf3247.jpg)
@@ -576,3 +580,44 @@ U(되돌리기 취소)
 #### Print 클래스
 
 게임시작시 설명에 u, U에 대한 사항을 추가했습니다.
+
+<br>
+
+### 저장하기 불러오기
+
+<br>
+
+**기능구현은 하지 못했지만 생각한 내용을 적겠습니다**
+
+<br>
+
+지도 데이터에서 만약 P (4)가 아닌 구멍 위에 있는 P (5) 라면?
+
+내 로직에서는 불러오기가 에러남.
+
+저장할 때 5는 따로 X로 저장하고 (map data에 X를 추가)
+
+불러 올 때 X 라면 P (5) 로 읽으면 됨.
+
+<br>
+
+입력 로직 변경
+
+1S 2S 3S 4S 5S 를 명령어로 입력받아야함
+
+1L 2L 3L 4L 5L 도 마찬가지
+
+빅스 큐브때처럼 List 이용해서 1~5 입력 뒤에 S or L 이라면 하나로 합친 후에 List에 넣어서 명령어 저장해야 함
+
+<br>
+
+저장 할 때 지도 데이터 뿐만 아니라 이동 횟수까지 저장해야 함.
+
+맵데이터 제일 아래에 플레이하던 StageNum, `Stack<Character> rewind, Stack<Character> reRewind, Stack<Boolean> pushBall` 값을 저장해놔야 함.
+
+<br>
+
+1S 2S 3S 4S 5S 별로 map_enc1.txt, map_enc2.txt ..., map_enc5.txt 에 저장
+
+1L 2L 3L 4L 5L 별로 map_enc1.txt, map_enc2.txt ..., map_enc5.txt 에서 읽기
+
