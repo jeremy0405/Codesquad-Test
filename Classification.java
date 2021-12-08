@@ -66,16 +66,18 @@ public class Classification {
         }
         if (command.equals("1S") || command.equals("2S") || command.equals("3S") ||
             command.equals("4S") || command.equals("5S")) {
+            System.out.println("");
             System.out.println(command.charAt(0) + "세이브 기능 실행");
+            System.out.println("세이브 기능을 만들지 못했습니다.");
             return;
         }
         if (command.equals("1L") || command.equals("2L") || command.equals("3L") ||
             command.equals("4L") || command.equals("5L")) {
+            System.out.println("");
             System.out.println(command.charAt(0) + "불러오기 기능 실행");
+            System.out.println("불러오기기능을 만들지 못했습니다.");
             return;
         }
-
-
         Print.printMap(map);
         System.out.println(command + ": 해당 명령어는 존재하지 않습니다.");
     }
