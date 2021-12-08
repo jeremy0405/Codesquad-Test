@@ -69,6 +69,12 @@ public class Classification {
             System.out.println("");
             System.out.println(command.charAt(0) + "세이브 기능 실행");
             System.out.println("세이브 기능을 만들지 못했습니다.");
+            //todo (map_enc + command.charAt(0)).txt 정보를 저장 (ex map_enc4.txt)
+            //    txt 파일 저장 시 map 데이터 뿐 아니라
+            //    Stack<String> rewind
+            //    Stack<String> reRewind
+            //    Stack<Boolean> pushBall
+            //    3개의 값과 Game.stageNum 값을 저장해야 함.
             return;
         }
         if (command.equals("1L") || command.equals("2L") || command.equals("3L") ||
@@ -76,6 +82,12 @@ public class Classification {
             System.out.println("");
             System.out.println(command.charAt(0) + "불러오기 기능 실행");
             System.out.println("불러오기기능을 만들지 못했습니다.");
+            //todo (map_enc + command.charAt(0)).txt 정보를 읽음 (ex map_enc4.txt)
+            //    stageNum 데이터를 읽은 후 알맞은 Stage map을 배정함
+            //    Stack<String> rewind
+            //    Stack<String> reRewind
+            //    Stack<Boolean> pushBall
+            //    위 3개의 Stack 값을 저장되어 있던 값과 동일하게 세팅
             return;
         }
         Print.printMap(map);
