@@ -43,7 +43,7 @@ public class Game {
 
     private void playGame(int[][] map, boolean isKeep, int stage) {
         while (isKeep) {
-            char[] commands = userInput.userInput();
+            String[] commands = userInput.userInput();
             classification.performCommands(map, commands, playerPosition, stage);
             isKeep = checkEndGame(map);
         }

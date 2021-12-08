@@ -4,19 +4,19 @@ public class Classification {
 
     private final MovePlayer movePlayer;
     private final MapReader mapReader;
-    public static final Stack<Character> rewind = new Stack<>();
-    public static final Stack<Character> reRewind = new Stack<>();
+    public static final Stack<String> rewind = new Stack<>();
+    public static final Stack<String> reRewind = new Stack<>();
     public static final Stack<Boolean> pushBall = new Stack<>();
-    private char previousCommand;
+    private String previousCommand = "";
 
     Classification(MovePlayer movePlayer, MapReader mapReader) {
         this.movePlayer = movePlayer;
         this.mapReader = mapReader;
     }
 
-    public void performCommands(int[][] map, char[] commands, Position playerPosition, int stage) {
+    public void performCommands(int[][] map, String[] commands, Position playerPosition, int stage) {
 
-        for (char command : commands) {
+        for (String command : commands) {
             int x = playerPosition.getX();
             int y = playerPosition.getY();
             validateCommand(map, command, x, y, playerPosition, stage);
@@ -24,26 +24,26 @@ public class Classification {
 
     }
 
-    private void validateCommand(int[][] map, char command, int x, int y, Position playerPosition,
+    private void validateCommand(int[][] map, String command, int x, int y, Position playerPosition,
         int stage) {
-        if ( previousCommand != 'u') {
+        if (!previousCommand.equals("u")) {
             reRewind.clear();
         }
         if (moveCommand(map, command, x, y, playerPosition)) {
             previousCommand = command;
             return;
         }
-        if (command == 'Q' || command == 'q') {
+        if (command.equalsIgnoreCase("Q")) {
             System.out.println("Bye~");
             System.exit(0);
         }
-        if (command == 'R' || command == 'r') {
+        if (command.equalsIgnoreCase("R")) {
             resetGame(map, playerPosition, stage);
             return;
         }
-        if (command == 'u') {
+        if (command.equals("u")) {
             if (!rewind.isEmpty()) {
-                char tmp = rewind.pop();
+                String tmp = rewind.pop();
                 reverseMoveCommand(map, tmp, x, y, playerPosition);
                 reRewind.push(tmp);
                 previousCommand = command;
@@ -52,7 +52,7 @@ public class Classification {
             }
             return;
         }
-        if (command == 'U' && previousCommand == 'u') {
+        if (command.equals("U") && previousCommand.equals("u")) {
             if (!reRewind.isEmpty()) {
                 moveCommand(map, reRewind.pop(), x, y, playerPosition);
             } else {
@@ -60,56 +60,68 @@ public class Classification {
             }
             return;
         }
-        if (command == 'U') {
+        if (command.equals("U")) {
             System.out.println("되돌리기의 되돌리기가 불가능합니다!!");
             return;
         }
+        if (command.equals("1S") || command.equals("2S") || command.equals("3S") ||
+            command.equals("4S") || command.equals("5S")) {
+            System.out.println(command.charAt(0) + "세이브 기능 실행");
+            return;
+        }
+        if (command.equals("1L") || command.equals("2L") || command.equals("3L") ||
+            command.equals("4L") || command.equals("5L")) {
+            System.out.println(command.charAt(0) + "불러오기 기능 실행");
+            return;
+        }
+
+
         Print.printMap(map);
         System.out.println(command + ": 해당 명령어는 존재하지 않습니다.");
     }
 
-    private boolean moveCommand(int[][] map, char command, int x, int y, Position playerPosition) {
-        if (command == 'A' || command == 'a') {
+    private boolean moveCommand(int[][] map, String command, int x, int y, Position playerPosition) {
+        if (command.equalsIgnoreCase("A")) {
             if (movePlayer.moveWASD(map, command, x, y, 0, -1, playerPosition, ": 왼쪽으로 이동합니다.")) {
-                Classification.rewind.push('A');
+                Classification.rewind.push("A");
             }
             return true;
         }
-        if (command == 'D' || command == 'd') {
+        if (command.equalsIgnoreCase("D")) {
             if (movePlayer.moveWASD(map, command, x, y, 0, 1, playerPosition, ": 오른쪽으로 이동합니다.")) {
-                Classification.rewind.push('D');
+                Classification.rewind.push("D");
             }
             return true;
         }
-        if (command == 'W' || command == 'w') {
+        if (command.equalsIgnoreCase("W")) {
             if (movePlayer.moveWASD(map, command, x, y, -1, 0, playerPosition, ": 위로 이동합니다.")) {
-                Classification.rewind.push('W');
+                Classification.rewind.push("W");
             }
             return true;
         }
-        if (command == 'S' || command == 's') {
+        if (command.equalsIgnoreCase("S")) {
             if (movePlayer.moveWASD(map, command, x, y, 1, 0, playerPosition, ": 아래로 이동합니다.")) {
-                Classification.rewind.push('S');
+                Classification.rewind.push("S");
             }
             return true;
         }
         return false;
     }
 
-    private void reverseMoveCommand(int[][] map, char command, int x, int y, Position playerPosition) {
-        if (command == 'A') {
+    private void reverseMoveCommand(int[][] map, String command, int x, int y, Position playerPosition) {
+        if (command.equalsIgnoreCase("A")) {
             movePlayer.reverseMoveWASD(map, command, x, y, 0, -1, playerPosition);
             return;
         }
-        if (command == 'D') {
+        if (command.equalsIgnoreCase("D")) {
             movePlayer.reverseMoveWASD(map, command, x, y, 0, 1, playerPosition);
             return;
         }
-        if (command == 'W') {
+        if (command.equalsIgnoreCase("W")) {
             movePlayer.reverseMoveWASD(map, command, x, y, -1, 0, playerPosition);
             return;
         }
-        if (command == 'S') {
+        if (command.equalsIgnoreCase("S")) {
             movePlayer.reverseMoveWASD(map, command, x, y, 1, 0, playerPosition);
         }
     }

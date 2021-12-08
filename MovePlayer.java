@@ -1,6 +1,6 @@
 public class MovePlayer {
 
-    public boolean moveWASD(int[][] map, char command, int x, int y, int a,
+    public boolean moveWASD(int[][] map, String command, int x, int y, int a,
         int b, Position playerPosition, String s) {
         if (map[x + a][y + b] == 9) {
             printMapAndCommand(map, command, ": (경고!) 해당 명령을 수행할 수 없습니다!");
@@ -38,7 +38,7 @@ public class MovePlayer {
         playerPosition.setXY(x + a, y + b);
     }
 
-    public void reverseMoveWASD(int[][] map, char command, int x, int y, int a,
+    public void reverseMoveWASD(int[][] map, String command, int x, int y, int a,
         int b, Position playerPosition) {
         boolean pushBall = Classification.pushBall.pop();
         if (pushBall) {
@@ -65,7 +65,7 @@ public class MovePlayer {
         playerPosition.setXY(x - a, y - b);
     }
 
-    private void printMapAndCommand(int[][] map, char command, String s) {
+    private void printMapAndCommand(int[][] map, String command, String s) {
         Print.printMap(map);
         System.out.println(command + s);
     }
