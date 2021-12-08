@@ -59,6 +59,9 @@ public class Print {
         System.out.println("7. U 입력 시 u(이전 입력)을 되돌릴 수 있습니다.");
         System.out.println("   단! U외에 이전 입력이 u일 경우만 가능합니다. (w a s d 이동시 U 불가)");
         System.out.println("    사용 예시 ex) uuuu UU");
+        System.out.println("8. 1S, 2S, ..., 5S 입력시 1 ~ 5번 슬롯에 저장이 가능합니다.");
+        System.out.println("9. 1L, 2L, ..., 5L 입력시 1 ~ 5번 슬롯의 데이터를 불러옵니다.");
+        System.out.println("※8,9 번은 구현을 다 하지 못했습니다. 입력에 따른 명령분류만 해놨습니다.");
         System.out.println("=================================================================");
 
     }
