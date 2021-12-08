@@ -6,14 +6,14 @@ public class Classification {
     private final MapReader mapReader;
     public static final Stack<Character> rewind = new Stack<>();
     public static final Stack<Character> reRewind = new Stack<>();
-    // true 이면 공을 민 것
-    // flase 이면 공을 밀지 않은 것
     public static final Stack<Boolean> pushBall = new Stack<>();
     private char previousCommand;
+    private int countU;
 
     Classification(MovePlayer movePlayer, MapReader mapReader) {
         this.movePlayer = movePlayer;
         this.mapReader = mapReader;
+        this.countU = 0;
     }
 
     public void performCommands(int[][] map, char[] commands, Position playerPosition, int stage) {
@@ -57,6 +57,7 @@ public class Classification {
         if (command == 'U' && previousCommand == 'u') {
             if (!reRewind.isEmpty()) {
                 justMoveCommand(map, reRewind.pop(), x, y, playerPosition);
+                countU++;
             } else {
                 System.out.println("되돌리기의 되돌리기가 불가능합니다!!");
             }
@@ -144,13 +145,14 @@ public class Classification {
     }
 
     public int getCount() {
-        return rewind.size();
+        return rewind.size() + countU;
     }
 
     public void setCount() {
         rewind.clear();
         reRewind.clear();
         pushBall.clear();
+        countU = 0;
     }
 
 }
