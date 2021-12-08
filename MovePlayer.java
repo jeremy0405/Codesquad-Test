@@ -38,26 +38,16 @@ public class MovePlayer {
         playerPosition.setXY(x + a, y + b);
     }
 
-    private void printMapAndCommand(int[][] map, char command, String s) {
-        Print.printMap(map);
-        System.out.println(command + s);
-    }
-
     public void reverseMoveWASD(int[][] map, char command, int x, int y, int a,
         int b, Position playerPosition) {
         boolean pushBall = Classification.pushBall.pop();
         if (pushBall) {
-            // todo x + a, y + b -> 가는 방향 이건 맞네
             if (map[x + a][y + b] == 2 || map[x + a][y + b] == 3) {
                 moveReverseBall(map, x, y, a, b, playerPosition);
                 printMapAndCommand(map, command, " 되돌리기");
                 return;
             }
         }
-//        if (pushBall) {
-//
-//        }
-        //todo 완료.
         moveReverse(map, x, y, a, b, playerPosition);
         printMapAndCommand(map, command, " 되돌리기");
     }
@@ -66,7 +56,6 @@ public class MovePlayer {
         map[x][y] -= 2;
         map[x + a][y + b] -= 2;
         map[x - a][y - b] += 4;
-
         playerPosition.setXY(x - a, y - b);
     }
 
@@ -74,6 +63,11 @@ public class MovePlayer {
         map[x][y] -= 4;
         map[x - a][y - b] += 4;
         playerPosition.setXY(x - a, y - b);
+    }
+
+    private void printMapAndCommand(int[][] map, char command, String s) {
+        Print.printMap(map);
+        System.out.println(command + s);
     }
 
 }

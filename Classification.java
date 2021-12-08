@@ -28,6 +28,9 @@ public class Classification {
 
     private void validateCommand(int[][] map, char command, int x, int y, Position playerPosition,
         int stage) {
+        if ( previousCommand != 'u') {
+            reRewind.clear();
+        }
         if (moveCommand(map, command, x, y, playerPosition)) {
             previousCommand = command;
             return;
@@ -50,9 +53,6 @@ public class Classification {
                 System.out.println("더이상 되돌릴 수 없습니다!!");
             }
             return;
-        }
-        if ( previousCommand != 'u') {
-            reRewind.clear();
         }
         if (command == 'U' && previousCommand == 'u') {
             if (!reRewind.isEmpty()) {
@@ -152,4 +152,5 @@ public class Classification {
         reRewind.clear();
         pushBall.clear();
     }
+
 }
