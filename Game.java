@@ -22,8 +22,7 @@ public class Game {
         Print.gameStartMessage();
         for (int stage = 1; stage <= totalStage; stage++) {
             int[][] map = initSetting(stage);
-            boolean isKeep = true;
-            playGame(map, isKeep, stage);
+            playGame(map, stage);
             Print.stageEndPrint(stage, classification);
         }
         Print.gameEndPrint();
@@ -41,7 +40,8 @@ public class Game {
         return map;
     }
 
-    private void playGame(int[][] map, boolean isKeep, int stage) {
+    private void playGame(int[][] map, int stage) {
+        boolean isKeep = true;
         while (isKeep) {
             String[] commands = userInput.userInput();
             classification.performCommands(map, commands, playerPosition, stage);
