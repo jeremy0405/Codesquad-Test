@@ -8,8 +8,8 @@ public class UserInput {
 
     public String[] userInput() {
         System.out.print("Jerry's Sokoban> ");
-        String userinput = sc.nextLine();
-        return splitInput(userinput);
+        String userInput = sc.nextLine();
+        return splitInput(userInput);
     }
 
     private String[] splitInput(String userInput) {
