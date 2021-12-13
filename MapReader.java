@@ -28,11 +28,11 @@ public class MapReader {
     }
 
     private void countStage() {
-        stageLine.add(0);
+        stageLine.add(1);
         int size = lines.size();
         for (int i = 0; i < size; i++) {
             if (lines.get(i).contains("=")) {
-                stageLine.add(i + 1);
+                stageLine.add(i + 2);
             }
         }
     }
@@ -59,11 +59,11 @@ public class MapReader {
     private int[] setStartToLast(int stageNum) {
         int[] startToLast = new int[2];
         if (stageNum == stageLine.size()) {
-            startToLast[0] = stageLine.get(stageNum - 1) + 1;
+            startToLast[0] = stageLine.get(stageNum - 1);
             startToLast[1] = lines.size();
         } else {
-            startToLast[0] = stageLine.get(stageNum - 1) + 1;
-            startToLast[1] = stageLine.get(stageNum) - 1;
+            startToLast[0] = stageLine.get(stageNum - 1);
+            startToLast[1] = stageLine.get(stageNum) - 2;
         }
         return startToLast;
     }
