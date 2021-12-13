@@ -12,20 +12,25 @@ public class UserInput {
         return splitInput(userinput);
     }
 
-    private String[] splitInput(String userinput) {
+    private String[] splitInput(String userInput) {
         List<String> commandlist = new LinkedList<>();
-        for (int i = 0; i < userinput.length(); i++) {
+        for (int i = 0; i < userInput.length(); i++) {
 
-            if (i < userinput.length() - 1 && (userinput.charAt(i) == '1' || userinput.charAt(i) == '2'
-                || userinput.charAt(i) == '3' || userinput.charAt(i) == '4'
-                || userinput.charAt(i) == '5') && (userinput.charAt(i + 1) == 'S' || userinput.charAt(i + 1) == 'L')) {
-                commandlist.add(userinput.charAt(i) + "" + userinput.charAt(i + 1));
+            if (isSaveAndLoadCommand(userInput, i)) {
+                commandlist.add(userInput.charAt(i) + "" + userInput.charAt(i + 1));
                 i++;
                 continue;
             }
-            commandlist.add(userinput.charAt(i) + "");
+            commandlist.add(userInput.charAt(i) + "");
         }
         return commandlist.toArray(new String[0]);
+    }
+
+    private boolean isSaveAndLoadCommand(String userInput, int i) {
+        return i < userInput.length() - 1 && (userInput.charAt(i) == '1' || userInput.charAt(i) == '2'
+            || userInput.charAt(i) == '3' || userInput.charAt(i) == '4'
+            || userInput.charAt(i) == '5') && (
+            userInput.charAt(i + 1) == 'S' || userInput.charAt(i + 1) == 'L');
     }
 
     public void close() {
