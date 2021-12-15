@@ -12,6 +12,12 @@
 
 을 통해 단계별 코드를 실행 할 수 있습니다.
 
+
+intellij를 이용해서 빌드 시 java: error: release version 17 not supported 와 같이 버전 에러가 발생하면
+
+File -> ProjectStructure 에서 Language level 을 version 11 로 변경 후 빌드
+
+
 <br>
 
 ## 1단계
